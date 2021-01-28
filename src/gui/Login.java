@@ -45,7 +45,7 @@ public class Login extends JFrame {
     private void initComponents() {
         imgLogo.setSize(250, 250);
         imgLogo.setLocation((getWidth() - imgLogo.getWidth()) / 2, 5);
-        imgLogo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //imgLogo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setImagen(imgLogo, "logo.png");
 
         txtName.setSize(150, 30);
@@ -55,6 +55,7 @@ public class Login extends JFrame {
 
         inputName.setSize(200, 30);
         inputName.setLocation(215, 300);
+        inputName.setBackground(new Color(226,231,236));
         add(inputName);
 
         txtPassword.setSize(150, 30);
@@ -64,12 +65,15 @@ public class Login extends JFrame {
         
         inputPassword.setSize(200, 30);
         inputPassword.setLocation(215, 340);
+        inputPassword.setBackground(new Color(226,231,236));
         add(inputPassword);
         
         btnLogin.setSize(150, 30);
         btnLogin.setLocation((getWidth()-btnLogin.getWidth())/2, 420);
         btnLogin.setFont(new Font("Arial",Font.PLAIN,15));
         btnLogin.setFocusable(false);
+        btnLogin.setBackground(new Color(0,37,63));
+        btnLogin.setForeground(Color.WHITE);
         add(btnLogin);
 
     }
@@ -83,6 +87,7 @@ public class Login extends JFrame {
         setLayout(null);
         setSize(ANCHO, ALTO);
         setResizable(false);
+        getContentPane().setBackground(Color.WHITE);
         initComponents();
         initListeners();
         setDefaultCloseOperation(EXIT_ON_CLOSE);

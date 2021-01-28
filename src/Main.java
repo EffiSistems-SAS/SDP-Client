@@ -1,9 +1,9 @@
-import gui.MenuAdministrador;
+import gui.*;
 
 public class Main {
     
     public static void main(String[] args) {
-        MenuAdministrador menu = new MenuAdministrador("Sergio");
+        MenuEmpleado menu = new MenuEmpleado("Sergio");
         menu.initTemplate();
     }
     

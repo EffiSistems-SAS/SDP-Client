@@ -55,6 +55,8 @@ public class MenuEmpleado extends JFrame {
         BtnSubir.setLocation(15, 60);
         BtnSubir.setFont(new Font("Arial",Font.PLAIN,15));
         BtnSubir.setFocusable(false);
+        BtnSubir.setBackground(new Color(0, 37, 63));
+        BtnSubir.setForeground(Color.WHITE);
         add(BtnSubir);
 
         BtnBajar = new JButton("Bajar archivos");
@@ -62,6 +64,8 @@ public class MenuEmpleado extends JFrame {
         BtnBajar.setLocation(15, 200);
         BtnBajar.setFont(new Font("Arial",Font.PLAIN,15));
         BtnBajar.setFocusable(false);
+        BtnBajar.setBackground(new Color(0, 37, 63));
+        BtnBajar.setForeground(Color.WHITE);
         add(BtnBajar);
 
         BtnHistorial = new JButton("Ver historial");
@@ -69,6 +73,8 @@ public class MenuEmpleado extends JFrame {
         BtnHistorial.setLocation(getWidth() - BtnHistorial.getWidth() - 20, 60);
         BtnHistorial.setFont(new Font("Arial",Font.PLAIN,15));
         BtnHistorial.setFocusable(false);
+        BtnHistorial.setBackground(new Color(0, 37, 63));
+        BtnHistorial.setForeground(Color.WHITE);
         add(BtnHistorial);
 
         BtnQuit = new JButton("Cerrar sesión");
@@ -76,6 +82,8 @@ public class MenuEmpleado extends JFrame {
         BtnQuit.setLocation(getWidth() - BtnQuit.getWidth() - 20, 200);
         BtnQuit.setFont(new Font("Arial",Font.PLAIN,15));
         BtnQuit.setFocusable(false);
+        BtnQuit.setBackground(new Color(0, 37, 63));
+        BtnQuit.setForeground(Color.WHITE);
         add(BtnQuit);
     }
 
@@ -105,6 +113,7 @@ public class MenuEmpleado extends JFrame {
         setLayout(null);
         setTitle("Bienvenido "+ this.name);
         setSize(new Dimension(ANCHO, ALTO));
+        getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         initComponents();
         initListeners();

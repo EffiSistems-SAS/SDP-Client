@@ -11,18 +11,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 public class MenuAdministrador extends JFrame {
-    
+
     private final int ANCHO, ALTO;
 
     private JPanel panelCentral;
     private JLabel LblHora = new JLabel();
-    private JButton BtnCrear, BuscarUsuaio, BtnEliminar, BtnListar,BtnQuit;
-   
+    private JButton BtnCrear, BuscarUsuaio, BtnEliminar, BtnListar, BtnQuit;
+
     private Timer timer = new Timer(1000, (e) -> {
         LocalDateTime a = LocalDateTime.now();
-        LblHora.setText("<html><body><center style='font-size:20px'>Hora actual<br>" + a.getDayOfMonth() + " / "+ a.getMonthValue() + " / " + a.getYear() + "<br>" + a.getHour() + " : " + a.getMinute() + " : " + a.getSecond() + "</center></body></html>");
+        LblHora.setText("<html><body><center style='font-size:20px'>Hora actual<br>" + a.getDayOfMonth() + " / " + a.getMonthValue() + " / " + a.getYear() + "<br>" + a.getHour() + " : " + a.getMinute() + " : " + a.getSecond() + "</center></body></html>");
         repaint();
     });
     private String name;
@@ -53,68 +52,77 @@ public class MenuAdministrador extends JFrame {
         BtnCrear = new JButton("Crear usuario");
         BtnCrear.setSize(150, 30);
         BtnCrear.setLocation(15, 60);
-        BtnCrear.setFont(new Font("Arial",Font.PLAIN,15));
+        BtnCrear.setFont(new Font("Arial", Font.PLAIN, 15));
         BtnCrear.setFocusable(false);
+        BtnCrear.setBackground(new Color(0, 37, 63));
+        BtnCrear.setForeground(Color.WHITE);
         add(BtnCrear);
 
         BuscarUsuaio = new JButton("Buscar Usuario");
         BuscarUsuaio.setSize(150, 30);
         BuscarUsuaio.setLocation(15, 200);
-        BuscarUsuaio.setFont(new Font("Arial",Font.PLAIN,15));
+        BuscarUsuaio.setFont(new Font("Arial", Font.PLAIN, 15));
         BuscarUsuaio.setFocusable(false);
+        BuscarUsuaio.setBackground(new Color(0, 37, 63));
+        BuscarUsuaio.setForeground(Color.WHITE);
         add(BuscarUsuaio);
 
         BtnEliminar = new JButton("Eliminar usuario");
         BtnEliminar.setSize(150, 30);
         BtnEliminar.setLocation(getWidth() - BtnEliminar.getWidth() - 20, 60);
-        BtnEliminar.setFont(new Font("Arial",Font.PLAIN,15));
+        BtnEliminar.setFont(new Font("Arial", Font.PLAIN, 15));
         BtnEliminar.setFocusable(false);
+        BtnEliminar.setBackground(new Color(0, 37, 63));
+        BtnEliminar.setForeground(Color.WHITE);
         add(BtnEliminar);
 
         BtnListar = new JButton("Listar usuarios");
         BtnListar.setSize(BtnEliminar.getWidth(), 30);
         BtnListar.setLocation(getWidth() - BtnListar.getWidth() - 20, 200);
-        BtnListar.setFont(new Font("Arial",Font.PLAIN,15));
+        BtnListar.setFont(new Font("Arial", Font.PLAIN, 15));
         BtnListar.setFocusable(false);
+        BtnListar.setBackground(new Color(0, 37, 63));
+        BtnListar.setForeground(Color.WHITE);
         add(BtnListar);
-        
+
         BtnQuit = new JButton("Cerrar sesión");
         BtnQuit.setSize(150, 30);
-        BtnQuit.setLocation((getWidth() - BtnQuit.getWidth())/2, 230);
-        BtnQuit.setFont(new Font("Arial",Font.PLAIN,15));
+        BtnQuit.setLocation((getWidth() - BtnQuit.getWidth()) / 2, 230);
+        BtnQuit.setFont(new Font("Arial", Font.PLAIN, 15));
         BtnQuit.setFocusable(false);
+        BtnQuit.setBackground(new Color(0, 37, 63));
+        BtnQuit.setForeground(Color.WHITE);
         add(BtnQuit);
     }
 
-
     public void initListeners() {
         BtnCrear.addActionListener(ae -> {
-            
+
         });
 
         BuscarUsuaio.addActionListener(ae -> {
-            
 
         });
 
         BtnEliminar.addActionListener(ae -> {
-           
+
         });
-        
+
         BtnListar.addActionListener((event) -> {
-            
+
         });
-        
+
         BtnQuit.addActionListener(ae -> {
             dispose();
             Login newLogin = new Login();
             newLogin.initTemplate();
         });
     }
-    
+
     public void initTemplate() {
         setLayout(null);
-        setTitle("Bienvenido "+ this.name);
+        setTitle("Bienvenido " + this.name);
+        getContentPane().setBackground(Color.white);
         setSize(new Dimension(ANCHO, ALTO));
         setLocationRelativeTo(null);
         initComponents();
@@ -123,5 +131,5 @@ public class MenuAdministrador extends JFrame {
         setResizable(false);
         setVisible(true);
     }
-    
+
 }
