@@ -9,13 +9,9 @@ import Controllers.AdministradorController;
  */
 public class MenuAdministrador {
 
-	public AdministradorController m_AdministradorController;
+    public AdministradorController m_AdministradorController;
 
-	public MenuAdministrador(){
+    public MenuAdministrador() {
 
-	}
-
-	public void finalize() throws Throwable {
-
-	}
+    }
 }//end MenuAdministrador

@@ -9,13 +9,9 @@ import Controllers.EmpleadoController;
  */
 public class MenuEmpleado {
 
-	public EmpleadoController m_EmpleadoController;
+    public EmpleadoController m_EmpleadoController;
 
-	public MenuEmpleado(){
+    public MenuEmpleado() {
 
-	}
-
-	public void finalize() throws Throwable {
-
-	}
+    }
 }//end MenuEmpleado

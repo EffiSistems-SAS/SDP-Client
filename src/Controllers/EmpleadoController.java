@@ -2,6 +2,7 @@ package Controllers;
 
 import Views.MenuEmpleado;
 import Models.Empleado;
+import java.io.File;
 
 /**
  * @author User
@@ -10,30 +11,31 @@ import Models.Empleado;
  */
 public class EmpleadoController {
 
-	private MenuEmpleado menu;
-	public MenuEmpleado m_MenuEmpleado;
-	public Empleado m_Empleado;
+    private MenuEmpleado menu;
+    public MenuEmpleado m_MenuEmpleado;
+    public Empleado m_Empleado;
 
-	public EmpleadoController(){
+    public EmpleadoController() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
+    public void finalize() throws Throwable {
 
-	}
-	public Object verHistorialCambios(){
-		return null;
-	}
+    }
 
-	public Object bajarArchivos(){
-		return null;
-	}
+    public Object verHistorialCambios() {
+        return null;
+    }
 
-	/**
-	 * 
-	 * @param archivo
-	 */
-	public int subirArchivo(File archivo){
-		return 0;
-	}
+    public Object bajarArchivos() {
+        return null;
+    }
+
+    /**
+     *
+     * @param archivo
+     */
+    public int subirArchivo(File archivo) {
+        return 0;
+    }
 }//end EmpleadoController

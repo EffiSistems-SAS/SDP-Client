@@ -1,5 +1,6 @@
 package Models;
 
+import java.sql.Date;
 
 /**
  * @author User
@@ -8,16 +9,16 @@ package Models;
  */
 public class HistorialCambios {
 
-	private int version;
-	private String descipcion;
-	private String motivoCambio;
-	private Date fecha;
+    private int version;
+    private String descipcion;
+    private String motivoCambio;
+    private Date fecha;
 
-	public HistorialCambios(){
+    public HistorialCambios() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
+    public void finalize() throws Throwable {
 
-	}
+    }
 }//end HistorialCambios

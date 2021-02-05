@@ -1,6 +1,5 @@
 package Models;
 
-
 /**
  * @author migue
  * @version 1.0
@@ -8,30 +7,31 @@ package Models;
  */
 public class Administrador extends Usuario {
 
-	public Administrador(){
+    public Administrador() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
-	/**
-	 * 
-	 * @param usuario
-	 */
-	public void ingresarNuevoUsuario(Usuario usuario){
+    public void finalize() throws Throwable {
+        super.finalize();
+    }
 
-	}
+    /**
+     *
+     * @param usuario
+     */
+    public void ingresarNuevoUsuario(Usuario usuario) {
 
-	/**
-	 * 
-	 * @param idUsuario
-	 */
-	public void eliminarUsuario(int idUsuario){
+    }
 
-	}
+    /**
+     *
+     * @param idUsuario
+     */
+    public void eliminarUsuario(int idUsuario) {
 
-	public Usuario[] consultarListadoUsuarios(){
-		return null;
-	}
+    }
+
+    public Usuario[] consultarListadoUsuarios() {
+        return null;
+    }
 }//end Administrador

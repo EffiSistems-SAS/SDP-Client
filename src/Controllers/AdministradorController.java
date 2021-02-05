@@ -10,38 +10,39 @@ import Models.Administrador;
  */
 public class AdministradorController {
 
-	private Administrador administrador;
-	private MenuAdministrador menu;
-	public MenuAdministrador m_MenuAdministrador;
-	public Administrador m_Administrador;
+    private Administrador administrador;
+    private MenuAdministrador menu;
+    public MenuAdministrador m_MenuAdministrador;
+    public Administrador m_Administrador;
 
-	public AdministradorController(){
+    public AdministradorController() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
+    public void finalize() throws Throwable {
 
-	}
-	public Object getListadoUsuarios(){
-		return null;
-	}
+    }
 
-	/**
-	 * 
-	 * @param idEmpleado
-	 */
-	public int eliminarUsuario(int idEmpleado){
-		return 0;
-	}
+    public Object getListadoUsuarios() {
+        return null;
+    }
 
-	/**
-	 * 
-	 * @param id
-	 * @param nombre
-	 * @param correo
-	 * @param contraseña
-	 */
-	public int crearUsuario(int id, String nombre, String correo, String contraseña){
-		return 0;
-	}
+    /**
+     *
+     * @param idEmpleado
+     */
+    public int eliminarUsuario(int idEmpleado) {
+        return 0;
+    }
+
+    /**
+     *
+     * @param id
+     * @param nombre
+     * @param correo
+     * @param contraseï¿½a
+     */
+    public int crearUsuario(int id, String nombre, String correo, String contraseÃ±a) {
+        return 0;
+    }
 }//end AdministradorController

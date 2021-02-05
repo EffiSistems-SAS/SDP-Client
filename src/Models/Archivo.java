@@ -1,5 +1,6 @@
 package Models;
 
+import java.io.File;
 
 /**
  * @author migue
@@ -8,15 +9,15 @@ package Models;
  */
 public class Archivo {
 
-	private HistorialCambios[] historialDeCambios;
-	private File file;
-	public HistorialCambios m_HistorialCambios;
+    private HistorialCambios[] historialDeCambios;
+    private File file;
+    public HistorialCambios m_HistorialCambios;
 
-	public Archivo(){
+    public Archivo() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
+    public void finalize() throws Throwable {
 
-	}
+    }
 }//end Archivo

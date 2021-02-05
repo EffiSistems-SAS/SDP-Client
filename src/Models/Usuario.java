@@ -9,20 +9,21 @@ import Connection.ConexionServer;
  */
 public class Usuario {
 
-	private String id;
-	private String correo;
-	private String contraseña;
-	private String nombre;
-	public ConexionServer m_ConexionServer;
+    private String id;
+    private String correo;
+    private String contraseÃ±a;
+    private String nombre;
+    public ConexionServer m_ConexionServer;
 
-	public Usuario(){
+    public Usuario() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
+    public void finalize() throws Throwable {
 
-	}
-	public int iniciarSesión(){
-		return 0;
-	}
+    }
+
+    public int iniciarSesion() {
+        return 0;
+    }
 }//end Usuario

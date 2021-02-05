@@ -9,26 +9,27 @@ import Models.Usuario;
  */
 public class LoginController {
 
-	private Usuario usuario;
-	public Usuario m_Usuario;
+    private Usuario usuario;
+    public Usuario m_Usuario;
 
-	public LoginController(){
+    public LoginController() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
+    public void finalize() throws Throwable {
 
-	}
-	/**
-	 * 
-	 * @param correo
-	 * @param contraseña
-	 */
-	public int iniciarSesion(String correo, String contraseña){
-		return 0;
-	}
+    }
 
-	public void cerrarSesion(){
+    /**
+     *
+     * @param correo
+     * @param contraseï¿½a
+     */
+    public int iniciarSesion(String correo, String contraseÃ±a) {
+        return 0;
+    }
 
-	}
+    public void cerrarSesion() {
+
+    }
 }//end LoginController

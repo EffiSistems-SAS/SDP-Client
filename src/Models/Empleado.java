@@ -1,6 +1,5 @@
 package Models;
 
-
 /**
  * @author migue
  * @version 1.0
@@ -8,36 +7,37 @@ package Models;
  */
 public class Empleado extends Usuario {
 
-	public Archivo m_Archivo;
+    public Archivo m_Archivo;
 
-	public Empleado(){
+    public Empleado() {
 
-	}
+    }
 
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
-	/**
-	 * 
-	 * @param archivos
-	 */
-	public void subirArchivos(Archivos[] archivos){
+    public void finalize() throws Throwable {
+        super.finalize();
+    }
 
-	}
+    /**
+     *
+     * @param archivos
+     */
+    public void subirArchivos(Archivo[] archivos) {
 
-	/**
-	 * 
-	 * @param archivos
-	 */
-	public Archivos[] bajarArchivos(Archivos[] archivos){
-		return null;
-	}
+    }
 
-	/**
-	 * 
-	 * @param archivo
-	 */
-	public HistorialCambios[] consultarHistorialCambios(Archivo archivo){
-		return null;
-	}
+    /**
+     *
+     * @param archivos
+     */
+    public Archivo[] bajarArchivos(Archivo[] archivos) {
+        return null;
+    }
+
+    /**
+     *
+     * @param archivo
+     */
+    public HistorialCambios[] consultarHistorialCambios(Archivo archivo) {
+        return null;
+    }
 }//end Empleado
