@@ -1,13 +1,13 @@
 package Views;
 
 import Controllers.LoginController;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
 //
 import java.awt.Color;
 import java.awt.Image;
@@ -22,7 +22,7 @@ public class Login extends JFrame {
 
     public MenuAdministrador m_MenuAdministrador;
     public MenuEmpleado m_MenuEmpleado;
-    public LoginController m_LoginController;
+    public LoginController LoginController;
 
     private final int ALTO, ANCHO;
     private final JLabel txtName, txtPassword, imgLogo;
@@ -33,12 +33,13 @@ public class Login extends JFrame {
     public Login() {
         ALTO = 500;
         ANCHO = 500;
-        txtName = new JLabel("Nombre de usuario:");
+        txtName = new JLabel("Correo:");
         txtPassword = new JLabel("Contraseña:");
         imgLogo = new JLabel();
         btnLogin = new JButton("Iniciar sesión");
         inputName = new JTextField();
         inputPassword = new JPasswordField();
+        LoginController = new LoginController();
     }
 
     private void setImagen(JLabel label, String nombreImg) {
@@ -58,13 +59,14 @@ public class Login extends JFrame {
         setImagen(imgLogo, "logo.png");
 
         txtName.setSize(150, 30);
-        txtName.setLocation(60, 300);
+        txtName.setLocation(115, 300);
         txtName.setFont(new Font("Arial", Font.BOLD, 15));
         add(txtName);
 
         inputName.setSize(200, 30);
         inputName.setLocation(215, 300);
         inputName.setBackground(new Color(226, 231, 236));
+        inputName.setText("spaezsuarez@gmail.com");
         add(inputName);
 
         txtPassword.setSize(150, 30);
@@ -75,6 +77,7 @@ public class Login extends JFrame {
         inputPassword.setSize(200, 30);
         inputPassword.setLocation(215, 340);
         inputPassword.setBackground(new Color(226, 231, 236));
+        inputPassword.setText("12345");
         add(inputPassword);
 
         btnLogin.setSize(150, 30);
@@ -86,14 +89,40 @@ public class Login extends JFrame {
         add(btnLogin);
 
     }
+    
+    private String convert(char[] password){
+        String retorno = "";
+        for(int i =0; i< password.length; i++){
+            retorno += password[i];
+        }
+        return retorno;
+    }
 
     private void initListeners() {
         btnLogin.addActionListener((event) -> {
+            int res = LoginController.iniciarSesion(inputName.getText(), convert(inputPassword.getPassword()));
+            switch (res) {
+                case 202:
+                    {
+                        MenuAdministrador menu = new MenuAdministrador();
+                        menu.initTemplate();
+                        break;
+                    }
+                case 200:
+                    {
+                        MenuEmpleado menu = new MenuEmpleado();
+                        menu.initTemplate();
+                        break;
+                    }
+                default:
+                    JOptionPane.showMessageDialog(null, "Correo o contraseña incorrecta.","Error",JOptionPane.WARNING_MESSAGE);
+                    break;
+            }
         });
     }
 
     public void initTemplate() {
-        setTitle("Login");
+        setTitle("Iniciar Sesión");
         setLayout(null);
         setSize(ANCHO, ALTO);
         setResizable(false);

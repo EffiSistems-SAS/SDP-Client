@@ -1,6 +1,6 @@
 package Controllers;
 
-import Models.Usuario;
+import Models.Empleado;
 
 /**
  * @author User
@@ -9,8 +9,7 @@ import Models.Usuario;
  */
 public class LoginController {
 
-    private Usuario usuario;
-    public Usuario m_Usuario;
+    private Empleado usuario;
 
     public LoginController() {
 
@@ -26,7 +25,10 @@ public class LoginController {
      * @param contrase�a
      */
     public int iniciarSesion(String correo, String contraseña) {
-        return 0;
+        Empleado empleado = new Empleado();
+        empleado.setCorreo(correo);
+        empleado.setContraseña(contraseña);
+        return empleado.iniciarSesion();
     }
 
     public void cerrarSesion() {

@@ -5,7 +5,7 @@ package Models;
  * @version 1.0
  * @created 03-feb.-2021 21:24:55
  */
-public class Administrador extends Usuario {
+public class Administrador extends Empleado {
 
     public Administrador() {
 
@@ -19,7 +19,7 @@ public class Administrador extends Usuario {
      *
      * @param usuario
      */
-    public void ingresarNuevoUsuario(Usuario usuario) {
+    public void ingresarNuevoUsuario(Empleado usuario) {
 
     }
 
@@ -31,7 +31,7 @@ public class Administrador extends Usuario {
 
     }
 
-    public Usuario[] consultarListadoUsuarios() {
+    public Empleado[] consultarListadoUsuarios() {
         return null;
     }
 }//end Administrador
