@@ -1,5 +1,6 @@
 package Views;
 
+import Controllers.AdministradorController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class PanelCentral extends JPanel {
@@ -16,8 +18,10 @@ public class PanelCentral extends JPanel {
     private final int Ancho = 570, Alto = 470;
 
     private JLabel LblNombre, LblPass, LblId, LblCorreo, LblRol, LblCargo;
-    private JTextField TxtFldNombre, TxtFldPass, TxtFldId, TxtFldCorreo, TxtFldRol, TxtFldCargo;
+    private JTextField TxtFldNombre, TxtFldId, TxtFldCorreo, TxtFldRol, TxtFldCargo;
+    private JPasswordField TxtFldPass;
     private JButton BtnAction;
+    private AdministradorController controller = new AdministradorController();
 
     private Color AzulClaro = new Color(123, 195, 229);
 
@@ -41,7 +45,7 @@ public class PanelCentral extends JPanel {
 
         TxtFldNombre = new JTextField("Nombre");
         TxtFldNombre.setVisible(false);
-        TxtFldPass = new JTextField("Contraseña");
+        TxtFldPass = new JPasswordField();
         TxtFldPass.setVisible(false);
         TxtFldId = new JTextField("Id");
         TxtFldId.setVisible(false);
@@ -60,9 +64,20 @@ public class PanelCentral extends JPanel {
             switch (BtnAction.getActionCommand()) {
                 case "Crear usuario":
                     if (verifNewUser()) {
-                        int res = JOptionPane.showConfirmDialog(null, "¿Está seguro de ingresar a este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                        int res = JOptionPane.showConfirmDialog(null, "¿Está seguro de ingresar a este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (res == 0) {
-
+                            int status = controller.crearUsuario(TxtFldNombre.getText(), TxtFldCorreo.getText(), convert(TxtFldPass.getPassword()), TxtFldCargo.getText(), TxtFldRol.getText());
+                            switch (status) {
+                                case 200:
+                                    JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                                    break;
+                                case 400:
+                                    JOptionPane.showMessageDialog(null, "Usuario creado anteriormente", "Status", JOptionPane.ERROR_MESSAGE);
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(null, "Unexpected error", "Status", JOptionPane.ERROR_MESSAGE);
+                                    break;
+                            }
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.WARNING_MESSAGE);
@@ -72,14 +87,25 @@ public class PanelCentral extends JPanel {
                     if (!TxtFldCorreo.getText().isBlank()) {
                         int res = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar a este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION);
                         if (res == 0) {
-
+                            int status = controller.eliminarUsuario(TxtFldCorreo.getText());
+                            switch (status) {
+                                case 200:
+                                    JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                                    break;
+                                case 400:
+                                    JOptionPane.showMessageDialog(null, "Usuario creado anteriormente", "Status", JOptionPane.ERROR_MESSAGE);
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(null, "Unexpected error", "Status", JOptionPane.ERROR_MESSAGE);
+                                    break;
+                            }
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Rellene el campo", "Error", JOptionPane.WARNING_MESSAGE);
                     }
                     break;
                 case "Editar usuario":
-                    if (verifEditUser()) {
+                    if (verifNewUser()) {
                         int res = JOptionPane.showConfirmDialog(null, "¿Está seguro de editar los datos de este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION);
                         if (res == 0) {
 
@@ -144,22 +170,6 @@ public class PanelCentral extends JPanel {
         TxtFldPass.setHorizontalAlignment(JTextField.CENTER);
         TxtFldPass.setVisible(true);
         add(TxtFldPass);
-
-        LblId.setText("Id");
-        LblId.setSize(new Dimension(125, 30));
-        LblId.setLocation(new Point((getWidth() - LblId.getWidth() - 300) / 2, 155));
-        LblId.setHorizontalAlignment(JLabel.CENTER);
-        LblId.setFont(new Font("Arial", Font.BOLD, 20));
-        LblId.setVisible(true);
-        add(LblId);
-
-        TxtFldId.setSize(300, 30);
-        TxtFldId.setLocation(LblId.getX() + LblId.getWidth() + 5, 155);
-        TxtFldId.setFont(new Font("Arial", Font.BOLD, 15));
-        TxtFldId.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        TxtFldId.setHorizontalAlignment(JTextField.CENTER);
-        TxtFldId.setVisible(true);
-        add(TxtFldId);
 
         LblCorreo.setText("Correo");
         LblCorreo.setSize(new Dimension(125, 30));
@@ -412,7 +422,6 @@ public class PanelCentral extends JPanel {
         if (!(TxtFldNombre.getText().isBlank())
                 && !(TxtFldPass.getText().isBlank())
                 && !(TxtFldCorreo.getText().isBlank())
-                && !(TxtFldId.getText().isBlank())
                 && !(TxtFldCargo.getText().isBlank())
                 && !(TxtFldRol.getText().isBlank())) {
             return true;
@@ -421,15 +430,12 @@ public class PanelCentral extends JPanel {
         }
     }
 
-    public boolean verifEditUser() {
-        if (!(TxtFldNombre.getText().isBlank())
-                && !(TxtFldPass.getText().isBlank())
-                && !(TxtFldCorreo.getText().isBlank())
-                && !(TxtFldCargo.getText().isBlank())
-                && !(TxtFldRol.getText().isBlank())) {
-            return true;
-        } else {
-            return false;
+    private String convert(char[] password) {
+        String retorno = "";
+        for (int i = 0; i < password.length; i++) {
+            retorno += password[i];
         }
+        return retorno;
     }
+
 }

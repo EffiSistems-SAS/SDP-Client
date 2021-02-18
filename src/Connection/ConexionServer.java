@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -28,23 +29,50 @@ public class ConexionServer {
     private HttpGet get;
     private HttpPost post;
     private HttpPut put;
+    private HttpDelete delete;
     private org.apache.http.HttpResponse response;
     private String resource, base_url;
     private static ConexionServer instanceConnection;
 
-    private ConexionServer() {
+    private ConexionServer() { //Constructor público
         client = HttpClients.createDefault();
         get = null;
         post = null;
         base_url = "http://localhost:3000";
     }
 
-    /**
-     *
-     * @param ruta
-     * @param datos
-     */
-    public void POST(String ruta, String datos) {
+    public static ConexionServer getConexionServer() { //Singleton
+        if (instanceConnection == null) {
+            instanceConnection = new ConexionServer();
+        }
+        return instanceConnection;
+    }
+
+    public int GET(String ruta) { //Ruta get
+        get = new HttpGet(base_url + ruta);
+        try {
+            response = this.client.execute(get);
+            resource = EntityUtils.toString(this.response.getEntity());
+        } catch (Exception e) {
+            return 500;
+        }
+        if (this.response == null) {
+            return 503;
+        }
+        return this.response.getStatusLine().getStatusCode();
+    }
+    
+    public InputStream GETFILE(String ruta) { //Ruta get para obtener un archivo
+        get = new HttpGet(base_url + ruta);
+        try {
+            response = this.client.execute(get);
+            return this.response.getEntity().getContent();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public int POST(String ruta, String datos) { //Ruta post para crear un empleado
         try {
             URI final_url = new URIBuilder(base_url + ruta).build();
             post = new HttpPost(final_url);
@@ -53,58 +81,17 @@ public class ConexionServer {
             post.setEntity(final_data);
             response = client.execute(post);
             resource = EntityUtils.toString(response.getEntity());
+            return this.response.getStatusLine().getStatusCode();
         } catch (URISyntaxException ex) {
             System.out.println(ex.getMessage());
-
+            return 402;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return 500;
         }
-
     }
 
-    /**
-     *
-     * @param ruta
-     */
-    public InputStream GETFILE(String ruta) {
-        get = new HttpGet(base_url + ruta);
-        try {
-            response = this.client.execute(get);
-            //resource = EntityUtils.toString(this.response.getEntity());
-            return this.response.getEntity().getContent();
-
-        } catch (Exception e) {
-        }
-        return null;
-    }
-    
-    public int GET(String ruta) {
-        get = new HttpGet(base_url + ruta);
-        try {
-            response = this.client.execute(get);
-            resource = EntityUtils.toString(this.response.getEntity());
-
-        } catch (Exception e) {
-        }
-        if(this.response == null){
-            return 503;
-        }
-        return this.response.getStatusLine().getStatusCode();
-    }
-
-    public static ConexionServer getConexionServer() {
-        if (instanceConnection == null) {
-            instanceConnection = new ConexionServer();
-        }
-        return instanceConnection;
-    }
-
-    /**
-     *
-     * @param ruta
-     * @param archivo
-     */
-    public void POST(String ruta, File archivo) {
+    public int POST(String ruta, File archivo) { //Ruta post para subir un archivo
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -112,22 +99,39 @@ public class ConexionServer {
             builder.addPart("file", body);
             URI final_url = new URIBuilder(base_url + ruta).build();
             post = new HttpPost(final_url);
-            //post.setHeader("content-type", "multipart/form-data");
             HttpEntity reqEntity = builder.build();
             post.setEntity(reqEntity);
             response = client.execute(post);
             resource = EntityUtils.toString(response.getEntity());
+            return this.response.getStatusLine().getStatusCode();
         } catch (URISyntaxException ex) {
+            System.out.println(ex.getMessage());
+            return 402;
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return 500;
         }
     }
 
-    /**
-     *
-     * @param ruta
-     * @param data
-     */
-    public void PUT(String ruta, String datos) {
+    public int DELETE(String ruta) { //Ruta delete para borrar un empleado
+        try {
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            URI final_url = new URIBuilder(base_url + ruta).build();
+            delete = new HttpDelete(final_url);
+            response = client.execute(delete);
+            resource = EntityUtils.toString(response.getEntity());
+            return this.response.getStatusLine().getStatusCode();
+        } catch (URISyntaxException ex) {
+            System.out.println(ex.getMessage());
+            return 402;
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return 500;
+        }
+    }
+
+    public int PUT(String ruta, String datos) { //Ruta put para editar
         try {
             put = new HttpPut(base_url + ruta);
             put.setHeader("content-type", "application/json");
@@ -135,8 +139,10 @@ public class ConexionServer {
             put.setEntity(final_data);
             response = client.execute(put);
             resource = EntityUtils.toString(response.getEntity());
+            return this.response.getStatusLine().getStatusCode();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 500;
         }
-
     }
 }//end ConexionServer

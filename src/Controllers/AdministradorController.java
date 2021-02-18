@@ -2,6 +2,7 @@ package Controllers;
 
 import Views.MenuAdministrador;
 import Models.Administrador;
+import Models.Empleado;
 
 /**
  * @author User
@@ -13,7 +14,7 @@ public class AdministradorController {
     private Administrador administrador;
     private MenuAdministrador menu;
     public MenuAdministrador m_MenuAdministrador;
-    public Administrador m_Administrador;
+    public Administrador m_Administrador = new Administrador();
 
     public AdministradorController() {
 
@@ -31,8 +32,9 @@ public class AdministradorController {
      *
      * @param idEmpleado
      */
-    public int eliminarUsuario(int idEmpleado) {
-        return 0;
+    public int eliminarUsuario(String correo) {
+        int res = m_Administrador.eliminarUsuario(correo);
+        return res;
     }
 
     /**
@@ -42,7 +44,9 @@ public class AdministradorController {
      * @param correo
      * @param contrase�a
      */
-    public int crearUsuario(int id, String nombre, String correo, String contraseña) {
-        return 0;
+    public int crearUsuario(String nombre, String correo, String contraseña, String cargo, String rol) {
+        Empleado model = new Empleado("", correo, contraseña, nombre, cargo, rol);
+        int res = m_Administrador.ingresarNuevoUsuario(model);
+        return res;
     }
 }//end AdministradorController
