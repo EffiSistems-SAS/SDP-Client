@@ -11,18 +11,29 @@ public class Empleado {
 
     private String id;
     private String correo;
-    private String contraseña;
+    private String contrasena;
     private String nombre;
+    private String cargo;
+    private String rol;
     private ConexionServer m_ConexionServer;
     private Archivo m_Archivo;
 
-    public Empleado() {
-
+    public Empleado(){
+        
+    }
+    
+    public Empleado(String id, String correo, String contraseña, String nombre, String cargo, String rol) {
+        this.id = id;
+        this.correo = correo;
+        this.contrasena = contraseña;
+        this.nombre = nombre;
+        this.cargo = cargo;
+        this.rol = rol;
     }
 
     public int iniciarSesion() {
         ConexionServer conection = ConexionServer.getConexionServer();
-        int res = conection.GET("/auth/login/" + correo + "/" + contraseña);
+        int res = conection.GET("/auth/login/" + correo + "/" + contrasena);
         return res;
     }
 
@@ -55,7 +66,7 @@ public class Empleado {
     }
 
     public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+        this.contrasena = contraseña;
     }
 
 }//end Empleado
