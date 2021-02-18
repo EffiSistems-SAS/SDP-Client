@@ -21,8 +21,10 @@ public class Administrador extends Empleado {
 
     public Empleado consultarEmpleado(String correo) {
         ConexionServer conection = ConexionServer.getConexionServer();
-//        Empleado res = conection.GET("/adminOps/get/?correo=" + correo);
-        return null;
+
+        Gson gson = new Gson();
+        Empleado res = gson.fromJson(conection.GET("/adminOps/get/?correo=" + correo), Empleado.class);
+        return res;
     }
 
     public int editarEmpleado() {

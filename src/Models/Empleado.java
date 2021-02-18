@@ -33,8 +33,8 @@ public class Empleado {
 
     public int iniciarSesion() {
         ConexionServer conection = ConexionServer.getConexionServer();
-        int res = conection.GET("/auth/login/" + correo + "/" + contrasena);
-        return res;
+        conection.GET("/auth/login/" + correo + "/" + contrasena);
+        return conection.getResponse().getStatusLine().getStatusCode();
     }
 
     /**

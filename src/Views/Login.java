@@ -90,7 +90,7 @@ public class Login extends JFrame {
 
     private void initListeners() {
         btnLogin.addActionListener((event) -> {
-//            int res = LoginController.iniciarSesion(inputName.getText(), convert(inputPassword.getPassword()));
+            //int res = LoginController.iniciarSesion(inputName.getText(), convert(inputPassword.getPassword()));
             int res = LoginController.iniciarSesion("spaezsuarez@gmail.com", "123");
             switch (res) {
                 case 202: {
@@ -148,7 +148,7 @@ public class Login extends JFrame {
     }
 
     private void setImagen(JLabel label, String nombreImg) {
-        String rutaBase = "src/resources/" + nombreImg;
+        String rutaBase = "src/Resources/" + nombreImg;
         ImageIcon instr = new ImageIcon(rutaBase);
         Image imginstr = instr.getImage();
         Image nuevaimagen = imginstr.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);

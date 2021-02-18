@@ -40,6 +40,10 @@ public class ConexionServer {
         post = null;
         base_url = "http://localhost:3000";
     }
+    
+    public org.apache.http.HttpResponse getResponse(){
+        return response;
+    }
 
     public static ConexionServer getConexionServer() { //Singleton
         if (instanceConnection == null) {
@@ -48,18 +52,20 @@ public class ConexionServer {
         return instanceConnection;
     }
 
-    public int GET(String ruta) { //Ruta get
+    public String GET(String ruta) { //Ruta get
         get = new HttpGet(base_url + ruta);
         try {
             response = this.client.execute(get);
             resource = EntityUtils.toString(this.response.getEntity());
+            return resource;
         } catch (Exception e) {
-            return 500;
+            //return 500;
         }
         if (this.response == null) {
-            return 503;
+            //return 503;
         }
-        return this.response.getStatusLine().getStatusCode();
+        //getStatusLine().getStatusCode()
+        return null;
     }
     
     public InputStream GETFILE(String ruta) { //Ruta get para obtener un archivo
