@@ -1,10 +1,12 @@
 package Views;
 
 import Controllers.AdministradorController;
+import Models.Empleado;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
+import java.nio.charset.StandardCharsets;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,7 +19,7 @@ public class PanelCentral extends JPanel {
 
     private final int Ancho = 570, Alto = 470;
 
-    private JLabel LblNombre, LblPass, LblId, LblCorreo, LblRol, LblCargo;
+    private JLabel LblNombre, LblPass, LblId, LblCorreo, LblRol, LblCargo, LblInfoEmpleado;
     private JTextField TxtFldNombre, TxtFldId, TxtFldCorreo, TxtFldRol, TxtFldCargo;
     private JPasswordField TxtFldPass;
     private JButton BtnAction;
@@ -42,6 +44,8 @@ public class PanelCentral extends JPanel {
         LblCargo.setVisible(false);
         LblRol = new JLabel("Rol");
         LblRol.setVisible(false);
+        LblInfoEmpleado = new JLabel();
+        LblInfoEmpleado.setVisible(false);
 
         TxtFldNombre = new JTextField("Nombre");
         TxtFldNombre.setVisible(false);
@@ -70,6 +74,7 @@ public class PanelCentral extends JPanel {
                             switch (status) {
                                 case 200:
                                     JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                                    reset();
                                     break;
                                 case 400:
                                     JOptionPane.showMessageDialog(null, "Usuario creado anteriormente", "Status", JOptionPane.ERROR_MESSAGE);
@@ -89,8 +94,9 @@ public class PanelCentral extends JPanel {
                         if (res == 0) {
                             int status = controller.eliminarUsuario(TxtFldCorreo.getText());
                             switch (status) {
-                                case 200:
-                                    JOptionPane.showMessageDialog(null, "Usuario creado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                                case 202:
+                                    JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                                    reset();
                                     break;
                                 case 400:
                                     JOptionPane.showMessageDialog(null, "Usuario creado anteriormente", "Status", JOptionPane.ERROR_MESSAGE);
@@ -116,7 +122,18 @@ public class PanelCentral extends JPanel {
                     break;
                 case "Buscar usuario":
                     if (!TxtFldCorreo.getText().isBlank()) {
-
+                        Empleado empleado = controller.consultarEmpleado(TxtFldCorreo.getText());
+                        if (empleado == null) {
+                            JOptionPane.showMessageDialog(null, "Empleado no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            String info = "<html><head><meta charset='UTF-8'></head><body><p style='text-align: center'>Nombre: " + empleado.getNombre()
+                                    + "</p><br><p style='text-align: center'>Id: " + empleado.getId()
+                                    + "</p><br><p style='text-align: center'>Correo: " + empleado.getCorreo()
+                                    + "</p><br><p style='text-align: center'>Contraseña: " + empleado.getContrasena()
+                                    + "</p><br><p style='text-align: center'>Rol: " + empleado.getRol()
+                                    + "</p><br><p style='text-align: center'>Cargo: " + empleado.getCargo() + "</p></body></html>";
+                            LblInfoEmpleado.setText(info);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Rellene el campo", "Error", JOptionPane.WARNING_MESSAGE);
                     }
@@ -359,7 +376,10 @@ public class PanelCentral extends JPanel {
     }
 
     public void listarEmpleados() {
-
+        Empleado[] listado = controller.getListadoUsuarios();
+        for (Empleado e : listado) {
+            System.out.println(e.toString());
+        }
     }
 
     public void buscarEmpleado() {
@@ -367,7 +387,7 @@ public class PanelCentral extends JPanel {
 
         LblCorreo.setText("Correo");
         LblCorreo.setSize(new Dimension(125, 30));
-        LblCorreo.setLocation(new Point((getWidth() - LblCorreo.getWidth() - 300) / 2, (getHeight() / 2) - (LblCorreo.getHeight() / 2)));
+        LblCorreo.setLocation(new Point((getWidth() - LblCorreo.getWidth() - 300) / 2, 5));
         LblCorreo.setHorizontalAlignment(JLabel.CENTER);
         LblCorreo.setFont(new Font("Arial", Font.BOLD, 20));
         LblCorreo.setVisible(true);
@@ -380,6 +400,13 @@ public class PanelCentral extends JPanel {
         TxtFldCorreo.setHorizontalAlignment(JTextField.CENTER);
         TxtFldCorreo.setVisible(true);
         add(TxtFldCorreo);
+
+        LblInfoEmpleado.setSize(new Dimension(getWidth() - 10, getHeight() - 105));
+        LblInfoEmpleado.setLocation(5, 40);
+        LblInfoEmpleado.setFont(new Font("Arial", Font.BOLD, 15));
+        LblInfoEmpleado.setHorizontalAlignment(JLabel.CENTER);
+        LblInfoEmpleado.setVisible(true);
+        add(LblInfoEmpleado);
 
         BtnAction.setText("Buscar usuario");
         BtnAction.setSize(new Dimension(150, 40));
@@ -400,6 +427,7 @@ public class PanelCentral extends JPanel {
         LblCorreo.setVisible(false);
         LblCargo.setVisible(false);
         LblRol.setVisible(false);
+        LblInfoEmpleado.setVisible(false);
 
         TxtFldNombre.setText(null);
         TxtFldNombre.setVisible(false);

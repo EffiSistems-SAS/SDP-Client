@@ -23,8 +23,14 @@ public class Administrador extends Empleado {
         ConexionServer conection = ConexionServer.getConexionServer();
 
         Gson gson = new Gson();
-        Empleado res = gson.fromJson(conection.GET("/adminOps/get/?correo=" + correo), Empleado.class);
-        return res;
+        String info = conection.GET("/adminOps/get/" + correo);
+        if (info.equals("Empleado no encontrado")) {
+            return null;
+        } else {
+            Empleado res = gson.fromJson(info, Empleado.class);
+            return res;
+        }
+
     }
 
     public int editarEmpleado() {
@@ -32,6 +38,10 @@ public class Administrador extends Empleado {
     }
 
     public Empleado[] consultarListadoUsuarios() {
-        return null;
+        ConexionServer conection = ConexionServer.getConexionServer();
+        Gson gson = new Gson();
+        String info = conection.GET("/adminOps/list/");
+        Empleado[] lista = gson.fromJson(info, Empleado[].class);
+        return lista;
     }
 }

@@ -2,11 +2,6 @@ package Models;
 
 import Connection.ConexionServer;
 
-/**
- * @author migue
- * @version 1.0
- * @created 03-feb.-2021 21:24:55
- */
 public class Empleado {
 
     private String id;
@@ -18,10 +13,10 @@ public class Empleado {
     private ConexionServer m_ConexionServer;
     private Archivo m_Archivo;
 
-    public Empleado(){
-        
+    public Empleado() {
+
     }
-    
+
     public Empleado(String id, String correo, String contraseña, String nombre, String cargo, String rol) {
         this.id = id;
         this.correo = correo;
@@ -37,26 +32,14 @@ public class Empleado {
         return conection.getResponse().getStatusLine().getStatusCode();
     }
 
-    /**
-     *
-     * @param archivos
-     */
     public void subirArchivos(Archivo[] archivos) {
 
     }
 
-    /**
-     *
-     * @param archivos
-     */
     public Archivo[] bajarArchivos(Archivo[] archivos) {
         return null;
     }
 
-    /**
-     *
-     * @param archivo
-     */
     public HistorialCambios[] consultarHistorialCambios(Archivo archivo) {
         return null;
     }
@@ -69,4 +52,33 @@ public class Empleado {
         this.contrasena = contraseña;
     }
 
-}//end Empleado
+    public String getId() {
+        return id;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado{" + "id=" + id + ", correo=" + correo + ", contrasena=" + contrasena + ", nombre=" + nombre + ", cargo=" + cargo + ", rol=" + rol + ", m_ConexionServer=" + m_ConexionServer + ", m_Archivo=" + m_Archivo + '}';
+    }
+
+}

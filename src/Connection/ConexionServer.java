@@ -59,12 +59,9 @@ public class ConexionServer {
             resource = EntityUtils.toString(this.response.getEntity());
             return resource;
         } catch (Exception e) {
-            //return 500;
         }
         if (this.response == null) {
-            //return 503;
         }
-        //getStatusLine().getStatusCode()
         return null;
     }
     
@@ -151,4 +148,4 @@ public class ConexionServer {
             return 500;
         }
     }
-}//end ConexionServer
+}
