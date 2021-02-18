@@ -7,7 +7,7 @@ import Connection.ConexionServer;
  * @version 1.0
  * @created 03-feb.-2021 21:24:55
  */
-public class Empleado{
+public class Empleado {
 
     private String id;
     private String correo;
@@ -19,11 +19,10 @@ public class Empleado{
     public Empleado() {
 
     }
-    
-    public int iniciarSesion(){
+
+    public int iniciarSesion() {
         ConexionServer conection = ConexionServer.getConexionServer();
-        int res = conection.GET("/auth/login/"+correo+"/"+contraseña);
-        System.out.println(res);
+        int res = conection.GET("/auth/login/" + correo + "/" + contraseña);
         return res;
     }
 
@@ -58,6 +57,5 @@ public class Empleado{
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-    
-    
+
 }//end Empleado

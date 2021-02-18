@@ -86,6 +86,9 @@ public class ConexionServer {
 
         } catch (Exception e) {
         }
+        if(this.response == null){
+            return 503;
+        }
         return this.response.getStatusLine().getStatusCode();
     }
 

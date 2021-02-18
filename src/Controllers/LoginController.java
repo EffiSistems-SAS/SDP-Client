@@ -12,7 +12,7 @@ public class LoginController {
     private Empleado usuario;
 
     public LoginController() {
-
+        usuario = new Empleado();
     }
 
     public void finalize() throws Throwable {
@@ -25,13 +25,12 @@ public class LoginController {
      * @param contrase�a
      */
     public int iniciarSesion(String correo, String contraseña) {
-        Empleado empleado = new Empleado();
-        empleado.setCorreo(correo);
-        empleado.setContraseña(contraseña);
-        return empleado.iniciarSesion();
+        usuario.setCorreo(correo);
+        usuario.setContraseña(contraseña);
+        return usuario.iniciarSesion();
     }
 
     public void cerrarSesion() {
-
+        
     }
 }//end LoginController
