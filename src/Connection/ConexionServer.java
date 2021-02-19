@@ -18,11 +18,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-/**
- * @author migue
- * @version 1.0
- * @created 03-feb.-2021 21:24:55
- */
+
 public class ConexionServer {
 
     private org.apache.http.client.HttpClient client;
@@ -86,9 +82,11 @@ public class ConexionServer {
             resource = EntityUtils.toString(response.getEntity());
             return this.response.getStatusLine().getStatusCode();
         } catch (URISyntaxException ex) {
+            System.out.println("1");
             System.out.println(ex.getMessage());
             return 402;
         } catch (Exception e) {
+            System.out.println("2");
             System.out.println(e.getMessage());
             return 500;
         }

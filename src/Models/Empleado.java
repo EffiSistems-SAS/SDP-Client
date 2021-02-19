@@ -1,6 +1,9 @@
 package Models;
 
 import Connection.ConexionServer;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 
 public class Empleado {
 
@@ -29,13 +32,18 @@ public class Empleado {
     public int iniciarSesion() {
         ConexionServer conection = ConexionServer.getConexionServer();
         conection.GET("/auth/login/" + correo + "/" + contrasena);
-        System.out.println("Status Login EMpleado: " + conection.getResponse().getStatusLine().getStatusCode());
+        //System.out.println("Status Login EMpleado: " + conection.getResponse().getStatusLine().getStatusCode());
         return conection.getResponse().getStatusLine().getStatusCode();
     }
 
     public int subirArchivos(Archivo archivo) {
         ConexionServer conection = ConexionServer.getConexionServer();
-        int res = conection.POST("/multer/", archivo.getFile());
+        int res = 0;
+        try {
+            res = conection.POST("/multer/"+URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
+        } catch (UnsupportedEncodingException ex) {
+            
+        }
         conection.POST("/files/post", archivo.getFile());
         return res;
     }

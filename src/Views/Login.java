@@ -100,7 +100,6 @@ public class Login extends JFrame {
     private void initListeners() {
         btnLogin.addActionListener((event) -> {
             int res = LoginController.iniciarSesion(inputName.getText(),String.valueOf(inputPassword.getPassword()));
-            System.out.println(res);
             switch (res) {
                 case 202: {
                     MenuAdministrador menu = new MenuAdministrador();

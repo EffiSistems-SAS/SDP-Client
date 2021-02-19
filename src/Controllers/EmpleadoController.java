@@ -24,12 +24,11 @@ public class EmpleadoController {
     
     public void setInfo(String correo){
         ConexionServer conection = ConexionServer.getConexionServer();
-        String data = conection.GET("adminOps/get/"+correo);
+        String data = conection.GET("/adminOps/get/"+correo);
         Gson gson = new Gson();
         System.out.println("Status: "+conection.getResponse().getStatusLine().getStatusCode());
         if(conection.getResponse().getStatusLine().getStatusCode() == 200){
             m_Empleado = gson.fromJson(data, Empleado.class);
-           
         }
     }
 
@@ -44,6 +43,7 @@ public class EmpleadoController {
 
     public int subirArchivo(File archivo) {
         Archivo archivoSubida = new Archivo(archivo);
+        System.out.println("Empleado: "+m_Empleado);
         return m_Empleado.subirArchivos(archivoSubida);
     }
 }//end EmpleadoController
