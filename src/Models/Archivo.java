@@ -11,13 +11,17 @@ public class Archivo {
 
     private HistorialCambios[] historialDeCambios;
     private File file;
-    public HistorialCambios m_HistorialCambios;
 
-    public Archivo() {
-
+    public Archivo(File file) {
+        this.file = file;
+    }
+    
+    public File getFile(){
+        return file;
+    }
+    
+    public HistorialCambios[] getHistorialCambios(){
+        return historialDeCambios;
     }
 
-    public void finalize() throws Throwable {
-
-    }
 }//end Archivo

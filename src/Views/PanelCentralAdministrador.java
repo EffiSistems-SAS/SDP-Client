@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class PanelCentral extends JPanel {
+public class PanelCentralAdministrador extends JPanel {
 
     private final int Ancho = 570, Alto = 470;
 
@@ -31,7 +31,7 @@ public class PanelCentral extends JPanel {
 
     private Color AzulClaro = new Color(123, 195, 229);
 
-    public PanelCentral() {
+    public PanelCentralAdministrador() {
         initTemplate();
     }
 

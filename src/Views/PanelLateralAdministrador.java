@@ -8,16 +8,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class PanelLateral extends JPanel {
+public class PanelLateralAdministrador extends JPanel {
 
     private final int Ancho = 200, Alto = 515;
 
     private JButton BtnCreEmp, BtnDelEmp, BtnUpdEmp, BtnListEmp, BtnSearchEmp;
-    private PanelCentral RefCentral;
+    private PanelCentralAdministrador RefCentral;
 
     private Color AzulOscuro = new Color(51, 80, 101);
 
-    public PanelLateral(PanelCentral ref) {
+    public PanelLateralAdministrador(PanelCentralAdministrador ref) {
         initTemplate();
         RefCentral = ref;
     }

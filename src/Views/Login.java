@@ -24,26 +24,26 @@ public class Login extends JFrame {
     public MenuEmpleado m_MenuEmpleado;
     public LoginController LoginController;
 
-    private final int ALTO, ANCHO;
-    private final JLabel txtName, txtPassword, imgLogo;
-    private final JTextField inputName;
-    private final JButton btnLogin;
-    private final JPasswordField inputPassword;
+    private int ALTO, ANCHO;
+    private JLabel txtName, txtPassword, imgLogo;
+    private JTextField inputName;
+    private JButton btnLogin;
+    private JPasswordField inputPassword;
     private static Login login;
     
     private Color Gris = new Color(226, 231, 236);
     private Color AzulOscuro = new Color(0, 37, 63);
 
     private Login() {
+        LoginController = new LoginController();
+        
         ALTO = 500;
         ANCHO = 500;
-        txtName = new JLabel("Correo:");
-        txtPassword = new JLabel("Contraseña:");
-        imgLogo = new JLabel();
-        btnLogin = new JButton("Iniciar sesión");
-        inputName = new JTextField();
-        inputPassword = new JPasswordField();
-        LoginController = new LoginController();
+        setSize(ANCHO, ALTO);
+        initComponents();
+        initListeners();
+        
+        
     }
 
     public static Login getLogin() {
@@ -54,30 +54,39 @@ public class Login extends JFrame {
     }
 
     private void initComponents() {
+        imgLogo = new JLabel();
         imgLogo.setSize(250, 250);
         imgLogo.setLocation((getWidth() - imgLogo.getWidth()) / 2, 5);
         setImagen(imgLogo, "logo.png");
 
+        
+        txtName = new JLabel("Correo:");
         txtName.setSize(150, 30);
         txtName.setLocation(115, 300);
         txtName.setFont(new Font("Arial", Font.BOLD, 15));
         add(txtName);
 
+        inputName = new JTextField();
         inputName.setSize(200, 30);
         inputName.setLocation(215, 300);
         inputName.setBackground(Gris);
+        inputName.setText("spaezsuarez@gmail.com");
         add(inputName);
 
+        txtPassword = new JLabel("Contraseña:");
         txtPassword.setSize(150, 30);
         txtPassword.setLocation(115, 340);
         txtPassword.setFont(new Font("Arial", Font.BOLD, 15));
         add(txtPassword);
-
+        
+        inputPassword = new JPasswordField();
         inputPassword.setSize(200, 30);
         inputPassword.setLocation(215, 340);
         inputPassword.setBackground(Gris);
+        inputPassword.setText("123");
         add(inputPassword);
 
+        btnLogin = new JButton("Iniciar sesión");
         btnLogin.setSize(150, 30);
         btnLogin.setLocation((getWidth() - btnLogin.getWidth()) / 2, 420);
         btnLogin.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -90,8 +99,8 @@ public class Login extends JFrame {
 
     private void initListeners() {
         btnLogin.addActionListener((event) -> {
-            //int res = LoginController.iniciarSesion(inputName.getText(), convert(inputPassword.getPassword()));
-            int res = LoginController.iniciarSesion("spaezsuarez@gmail.com", "123");
+            int res = LoginController.iniciarSesion(inputName.getText(),String.valueOf(inputPassword.getPassword()));
+            System.out.println(res);
             switch (res) {
                 case 202: {
                     MenuAdministrador menu = new MenuAdministrador();
@@ -101,7 +110,7 @@ public class Login extends JFrame {
                     break;
                 }
                 case 200: {
-                    MenuEmpleado menu = new MenuEmpleado();
+                    MenuEmpleado menu = new MenuEmpleado(inputName.getText());
                     menu.initTemplate();
                     dispose();
                     reset();
@@ -124,11 +133,9 @@ public class Login extends JFrame {
     public void initTemplate() {
         setTitle("Iniciar Sesión");
         setLayout(null);
-        setSize(ANCHO, ALTO);
+
         setResizable(false);
         getContentPane().setBackground(Color.WHITE);
-        initComponents();
-        initListeners();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

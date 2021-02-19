@@ -8,8 +8,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,13 +18,13 @@ import javax.swing.JLabel;
  * @version 1.0
  * @created 03-feb.-2021 21:24:55
  */
-public class MenuAdministrador extends JFrame implements WindowFocusListener {
+public class MenuAdministrador extends JFrame {
 
     //Graphic elements
     private final int Ancho = 800, Alto = 600;
 
-    private PanelLateral PnlLateral;
-    private PanelCentral PnlCentral;
+    private PanelLateralAdministrador PnlLateral;
+    private PanelCentralAdministrador PnlCentral;
     private JLabel LblTitle, LblWelcome;
     private JButton BtnQuit;
     
@@ -34,12 +32,6 @@ public class MenuAdministrador extends JFrame implements WindowFocusListener {
     private Color Verde = new Color(31, 134, 101);
 
     public AdministradorController AdministradorController = new AdministradorController();
-
-    ;
-
-    public MenuAdministrador() {
-        addWindowFocusListener(this);
-    }
 
     private void initComponents() {
         LblTitle = new JLabel("SECRETARÍA DISTRITAL DE PLANEACIÓN");
@@ -52,11 +44,11 @@ public class MenuAdministrador extends JFrame implements WindowFocusListener {
         LblTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         add(LblTitle);
 
-        PnlCentral = new PanelCentral();
+        PnlCentral = new PanelCentralAdministrador();
         PnlCentral.setLocation(new Point(210, 40));
         add(PnlCentral);
 
-        PnlLateral = new PanelLateral(PnlCentral);
+        PnlLateral = new PanelLateralAdministrador(PnlCentral);
         PnlLateral.setLocation(new Point(5, 40));
         add(PnlLateral);
 
@@ -113,13 +105,5 @@ public class MenuAdministrador extends JFrame implements WindowFocusListener {
         add(Component);
     }
 
-    @Override
-    public void windowGainedFocus(WindowEvent e) {
-    }
-
-    @Override
-    public void windowLostFocus(WindowEvent e) {
-//        System.exit(0);
-    }
 
 }//end MenuAdministrador

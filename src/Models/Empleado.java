@@ -29,11 +29,15 @@ public class Empleado {
     public int iniciarSesion() {
         ConexionServer conection = ConexionServer.getConexionServer();
         conection.GET("/auth/login/" + correo + "/" + contrasena);
+        System.out.println("Status Login EMpleado: " + conection.getResponse().getStatusLine().getStatusCode());
         return conection.getResponse().getStatusLine().getStatusCode();
     }
 
-    public void subirArchivos(Archivo[] archivos) {
-
+    public int subirArchivos(Archivo archivo) {
+        ConexionServer conection = ConexionServer.getConexionServer();
+        int res = conection.POST("/multer/", archivo.getFile());
+        conection.POST("/files/post", archivo.getFile());
+        return res;
     }
 
     public Archivo[] bajarArchivos(Archivo[] archivos) {

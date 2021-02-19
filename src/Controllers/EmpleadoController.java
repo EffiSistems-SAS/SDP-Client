@@ -1,14 +1,13 @@
 package Controllers;
 
+import Connection.ConexionServer;
+import Models.Archivo;
 import Views.MenuEmpleado;
 import Models.Empleado;
+import com.google.gson.Gson;
 import java.io.File;
 
-/**
- * @author User
- * @version 1.0
- * @created 03-feb.-2021 21:24:55
- */
+
 public class EmpleadoController {
 
     private MenuEmpleado menu;
@@ -16,12 +15,24 @@ public class EmpleadoController {
     public Empleado m_Empleado;
 
     public EmpleadoController() {
-
+        m_Empleado = new Empleado();
+    }
+    
+    public EmpleadoController(String correo){
+        setInfo(correo);
+    }
+    
+    public void setInfo(String correo){
+        ConexionServer conection = ConexionServer.getConexionServer();
+        String data = conection.GET("adminOps/get/"+correo);
+        Gson gson = new Gson();
+        System.out.println("Status: "+conection.getResponse().getStatusLine().getStatusCode());
+        if(conection.getResponse().getStatusLine().getStatusCode() == 200){
+            m_Empleado = gson.fromJson(data, Empleado.class);
+           
+        }
     }
 
-    public void finalize() throws Throwable {
-
-    }
 
     public Object verHistorialCambios() {
         return null;
@@ -31,11 +42,8 @@ public class EmpleadoController {
         return null;
     }
 
-    /**
-     *
-     * @param archivo
-     */
     public int subirArchivo(File archivo) {
-        return 0;
+        Archivo archivoSubida = new Archivo(archivo);
+        return m_Empleado.subirArchivos(archivoSubida);
     }
 }//end EmpleadoController
