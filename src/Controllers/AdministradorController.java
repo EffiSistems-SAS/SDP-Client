@@ -22,8 +22,9 @@ public class AdministradorController {
         return res;
     }
 
-    public int editarUsuario() {
-        return 0;
+    public int editarUsuario(String id,String nombre, String correo, String contraseña, String cargo, String rol) {
+        Empleado model = new Empleado(id, correo, contraseña, nombre, cargo, rol);
+        return m_Administrador.editarEmpleado(model);
     }
 
     public Empleado consultarEmpleado(String correo) {

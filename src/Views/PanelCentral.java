@@ -6,13 +6,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
-import java.nio.charset.StandardCharsets;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class PanelCentral extends JPanel {
@@ -22,7 +23,10 @@ public class PanelCentral extends JPanel {
     private JLabel LblNombre, LblPass, LblId, LblCorreo, LblRol, LblCargo, LblInfoEmpleado;
     private JTextField TxtFldNombre, TxtFldId, TxtFldCorreo, TxtFldRol, TxtFldCargo;
     private JPasswordField TxtFldPass;
-    private JButton BtnAction;
+    private JButton BtnAction, BtnObtener;
+    private JTable tabla;
+    private JScrollPane jsp;
+    
     private AdministradorController controller = new AdministradorController();
 
     private Color AzulClaro = new Color(123, 195, 229);
@@ -61,9 +65,20 @@ public class PanelCentral extends JPanel {
         TxtFldRol.setVisible(false);
 
         BtnAction = new JButton();
+        BtnAction.setVisible(false);
+
+        BtnObtener = new JButton();
+        BtnObtener.setVisible(false);
+        
+        jsp = new JScrollPane();
+        jsp.setVisible(false);
+
+        tabla = new JTable();
+        tabla.setVisible(false);
     }
 
     private void initListeners() {
+
         BtnAction.addActionListener((e) -> {
             switch (BtnAction.getActionCommand()) {
                 case "Crear usuario":
@@ -114,7 +129,19 @@ public class PanelCentral extends JPanel {
                     if (verifNewUser()) {
                         int res = JOptionPane.showConfirmDialog(null, "¿Está seguro de editar los datos de este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION);
                         if (res == 0) {
-
+                            int status = controller.editarUsuario(LblId.getText(), TxtFldNombre.getText(), TxtFldCorreo.getText(), String.valueOf(TxtFldPass.getPassword()), TxtFldCargo.getText(), TxtFldRol.getText());
+                            switch (status) {
+                                case 200:
+                                    JOptionPane.showMessageDialog(null, "Usuario editado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                                    reset();
+                                    break;
+                                case 400:
+                                    JOptionPane.showMessageDialog(null, "Usuario no encontrado", "Status", JOptionPane.ERROR_MESSAGE);
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(null, "Unexpected error", "Status", JOptionPane.ERROR_MESSAGE);
+                                    break;
+                            }
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Rellene los campos", "Error", JOptionPane.WARNING_MESSAGE);
@@ -141,6 +168,22 @@ public class PanelCentral extends JPanel {
                 default:
                     System.out.println("¿Na-Nani?");
             }
+        });
+
+        BtnObtener.addActionListener((event) -> {
+            Empleado empleado = controller.consultarEmpleado(TxtFldCorreo.getText());
+            System.out.println(empleado);
+            if (empleado != null) {
+                TxtFldNombre.setText(empleado.getNombre());
+                TxtFldCargo.setText(empleado.getCargo());
+                TxtFldRol.setText(empleado.getRol());
+                TxtFldPass.setText(empleado.getContrasena());
+                LblId.setText("Id: " + empleado.getId());
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+
         });
     }
 
@@ -372,14 +415,69 @@ public class PanelCentral extends JPanel {
         BtnAction.setVisible(true);
         add(BtnAction);
 
+        BtnObtener.setText("Obtener datos");
+        BtnObtener.setSize(new Dimension(150, 40));
+        BtnObtener.setLocation(new Point(((getWidth() - BtnObtener.getWidth()) / 2) + 100, 85));
+        BtnObtener.setFont(new Font("Arial", Font.BOLD, 15));
+        BtnObtener.setBackground(AzulClaro);
+        BtnObtener.setFocusable(false);
+        BtnObtener.setVisible(true);
+        add(BtnObtener);
+
+        LblId.setSize(new Dimension(250, 30));
+        LblId.setLocation(new Point(((getWidth() - LblId.getWidth()) / 2) - 150, 85));
+        LblId.setHorizontalAlignment(JLabel.CENTER);
+        LblId.setFont(new Font("Arial", Font.BOLD, 15));
+        LblId.setVisible(true);
+        add(LblId);
+
         repaint();
     }
 
     public void listarEmpleados() {
+        reset();
         Empleado[] listado = controller.getListadoUsuarios();
-        for (Empleado e : listado) {
-            System.out.println(e.toString());
+        String[] cols = {"Id", "Nombre", "Contraseña", "Correo", "Rol", "Cargo"};
+        String[][] rows = new String[listado.length][cols.length];
+
+        for (int i = 0; i < rows.length; i++) {
+            for (int j = 0; j < rows[0].length; j++) {
+                switch (j) {
+                    case 0:
+                        rows[i][j] = listado[i].getId();
+                        break;
+                    case 1:
+                        rows[i][j] = listado[i].getNombre();
+                        break;
+                    case 2:
+                        rows[i][j] = listado[i].getContrasena();
+                        break;
+                    case 3:
+                        rows[i][j] = listado[i].getCorreo();
+                        break;
+                    case 4:
+                        rows[i][j] = listado[i].getRol();
+                        break;
+                    case 5:
+                        rows[i][j] = listado[i].getCargo();
+                        break;
+                }
+            }
         }
+
+        tabla = new JTable(rows,cols);
+        tabla.setPreferredSize(new Dimension(1000,10000));
+        tabla.setLocation(0, 0);
+        
+        jsp = new JScrollPane(tabla);
+        
+        jsp.setSize(new Dimension(Ancho, Alto-5));
+        jsp.setLocation(0, 0);
+        jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        add(jsp);
+        jsp.updateUI();
+
     }
 
     public void buscarEmpleado() {
@@ -444,6 +542,11 @@ public class PanelCentral extends JPanel {
 
         BtnAction.setText(null);
         BtnAction.setVisible(false);
+
+        BtnObtener.setVisible(false);
+        
+        jsp.setVisible(false);
+        tabla.setVisible(false);
     }
 
     public boolean verifNewUser() {

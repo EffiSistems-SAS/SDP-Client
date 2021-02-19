@@ -33,8 +33,11 @@ public class Administrador extends Empleado {
 
     }
 
-    public int editarEmpleado() {
-        return 0;
+    public int editarEmpleado(Empleado empleado) {
+        ConexionServer conection = ConexionServer.getConexionServer();
+        Gson gson = new Gson();
+        String datos = gson.toJson(empleado);
+        return conection.PUT("/adminOps/edit", datos);
     }
 
     public Empleado[] consultarListadoUsuarios() {
