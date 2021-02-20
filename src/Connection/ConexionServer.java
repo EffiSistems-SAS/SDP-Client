@@ -18,7 +18,6 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-
 public class ConexionServer {
 
     private org.apache.http.client.HttpClient client;
@@ -36,8 +35,8 @@ public class ConexionServer {
         post = null;
         base_url = "http://localhost:3000";
     }
-    
-    public org.apache.http.HttpResponse getResponse(){
+
+    public org.apache.http.HttpResponse getResponse() {
         return response;
     }
 
@@ -60,7 +59,7 @@ public class ConexionServer {
         }
         return null;
     }
-    
+
     public InputStream GETFILE(String ruta) { //Ruta get para obtener un archivo
         get = new HttpGet(base_url + ruta);
         try {
@@ -71,7 +70,7 @@ public class ConexionServer {
         return null;
     }
 
-    public int POST(String ruta, String datos) { //Ruta post para crear un empleado
+    public int POST(String ruta, String datos) {
         try {
             URI final_url = new URIBuilder(base_url + ruta).build();
             post = new HttpPost(final_url);
@@ -82,17 +81,15 @@ public class ConexionServer {
             resource = EntityUtils.toString(response.getEntity());
             return this.response.getStatusLine().getStatusCode();
         } catch (URISyntaxException ex) {
-            System.out.println("1");
             System.out.println(ex.getMessage());
             return 402;
         } catch (Exception e) {
-            System.out.println("2");
             System.out.println(e.getMessage());
             return 500;
         }
     }
 
-    public int POST(String ruta, File archivo) { //Ruta post para subir un archivo
+    public int POSTFILE(String ruta, File archivo) { //Ruta post para subir un archivo
         try {
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);

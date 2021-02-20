@@ -1,9 +1,9 @@
 package Models;
 
 import Connection.ConexionServer;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-
 
 public class Empleado {
 
@@ -32,7 +32,6 @@ public class Empleado {
     public int iniciarSesion() {
         ConexionServer conection = ConexionServer.getConexionServer();
         conection.GET("/auth/login/" + correo + "/" + contrasena);
-        //System.out.println("Status Login EMpleado: " + conection.getResponse().getStatusLine().getStatusCode());
         return conection.getResponse().getStatusLine().getStatusCode();
     }
 
@@ -40,20 +39,30 @@ public class Empleado {
         ConexionServer conection = ConexionServer.getConexionServer();
         int res = 0;
         try {
-            res = conection.POST("/multer/"+URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
+            res = conection.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
         } catch (UnsupportedEncodingException ex) {
-            
+
         }
-        conection.POST("/files/post", archivo.getFile());
+        conection.POSTFILE("/files/post/" + id, archivo.getFile());
         return res;
     }
 
-    public Archivo[] bajarArchivos(Archivo[] archivos) {
+    public InputStream bajarArchivos(String fileName) {
+        ConexionServer conection = ConexionServer.getConexionServer();
+        try {
+            return conection.GETFILE("/files/get/" + URLEncoder.encode(nombre, "UTF-8") + "/" + fileName);
+        } catch (UnsupportedEncodingException ex) {
+
+        }
         return null;
     }
 
     public HistorialCambios[] consultarHistorialCambios(Archivo archivo) {
         return null;
+    }
+
+    public int eliminarArchivo(String nombre) {
+        return 0;
     }
 
     public void setCorreo(String correo) {

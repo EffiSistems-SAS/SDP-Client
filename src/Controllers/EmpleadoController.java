@@ -5,45 +5,94 @@ import Models.Archivo;
 import Views.MenuEmpleado;
 import Models.Empleado;
 import com.google.gson.Gson;
+import java.io.BufferedOutputStream;
 import java.io.File;
-
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EmpleadoController {
 
     private MenuEmpleado menu;
-    public MenuEmpleado m_MenuEmpleado;
-    public Empleado m_Empleado;
+    private MenuEmpleado m_MenuEmpleado;
+    private Empleado m_Empleado;
+
+    private static final int CHUNK_SIZE = 1024 * 4;
 
     public EmpleadoController() {
         m_Empleado = new Empleado();
     }
-    
-    public EmpleadoController(String correo){
+
+    public EmpleadoController(String correo) {
         setInfo(correo);
     }
-    
-    public void setInfo(String correo){
+
+    public void setInfo(String correo) {
         ConexionServer conection = ConexionServer.getConexionServer();
-        String data = conection.GET("/adminOps/get/"+correo);
+        String data = conection.GET("/adminOps/get/" + correo);
         Gson gson = new Gson();
-        System.out.println("Status: "+conection.getResponse().getStatusLine().getStatusCode());
-        if(conection.getResponse().getStatusLine().getStatusCode() == 200){
+        if (conection.getResponse().getStatusLine().getStatusCode() == 200) {
             m_Empleado = gson.fromJson(data, Empleado.class);
         }
     }
-
 
     public Object verHistorialCambios() {
         return null;
     }
 
-    public Object bajarArchivos() {
-        return null;
+    public int bajarArchivo(String nameFile) {
+        InputStream newInput = m_Empleado.bajarArchivos(nameFile);
+        String rutaBase = System.getProperty("user.home") + "\\Downloads";
+        String rutaDir = rutaBase + "\\" + m_Empleado.getNombre();
+        String rutaFile = rutaDir + "\\" + nameFile;
+
+        File fileDir = new File(rutaDir);
+        File file = new File(rutaFile);
+        if (!(newInput == null)) {
+            try {
+                if (!(fileDir.exists())) {
+                    if (fileDir.mkdir()) {
+                        crearArchivo(rutaFile, newInput);
+                        if (file.exists()) {
+                            return 200;
+                        } else {
+                            return 403;
+                        }
+                    } else {
+                        return 402;
+                    }
+                } else {
+                    crearArchivo(rutaFile, newInput);
+                    if (file.exists()) {
+                        return 200;
+                    } else {
+                        return 403;
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println(ex);
+                return 401;
+            }
+        } else {
+            return 400;
+        }
     }
 
     public int subirArchivo(File archivo) {
         Archivo archivoSubida = new Archivo(archivo);
-        System.out.println("Empleado: "+m_Empleado);
         return m_Empleado.subirArchivos(archivoSubida);
+    }
+
+    public void crearArchivo(String ruta, InputStream is) throws IOException {
+        OutputStream os = new BufferedOutputStream(new FileOutputStream(new File(ruta)));
+        byte[] chunk = new byte[CHUNK_SIZE];
+        int bytesLeidos = 0;
+        while ((bytesLeidos = is.read(chunk)) > 0) {
+            os.write(chunk, 0, bytesLeidos);
+        }
+        os.close();
     }
 }//end EmpleadoController

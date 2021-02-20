@@ -70,7 +70,7 @@ public class Login extends JFrame {
         inputName.setSize(200, 30);
         inputName.setLocation(215, 300);
         inputName.setBackground(Gris);
-        inputName.setText("spaezsuarez@gmail.com");
+        inputName.setText("miguel35697@hotmail.com");
         add(inputName);
 
         txtPassword = new JLabel("Contraseña:");
@@ -83,7 +83,7 @@ public class Login extends JFrame {
         inputPassword.setSize(200, 30);
         inputPassword.setLocation(215, 340);
         inputPassword.setBackground(Gris);
-        inputPassword.setText("123");
+        inputPassword.setText("contra123");
         add(inputPassword);
 
         btnLogin = new JButton("Iniciar sesión");
@@ -143,14 +143,6 @@ public class Login extends JFrame {
     private void reset() {
         inputName.setText(null);
         inputPassword.setText(null);
-    }
-
-    private String convert(char[] password) {
-        String retorno = "";
-        for (int i = 0; i < password.length; i++) {
-            retorno += password[i];
-        }
-        return retorno;
     }
 
     private void setImagen(JLabel label, String nombreImg) {
