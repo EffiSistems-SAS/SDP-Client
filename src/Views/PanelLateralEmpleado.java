@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class PanelLateralEmpleado extends JPanel {
 
     private final int Ancho = 200, Alto = 515;
-    private JButton BtnSubir, BtnBajar, BtnHistorial, BtnEliminar;
+    private JButton BtnSubir, BtnArchivos;
     private PanelCentralEmpleado RefCentral;
     private Color AzulOscuro = new Color(51, 80, 101);
 
@@ -38,37 +38,21 @@ public class PanelLateralEmpleado extends JPanel {
         BtnSubir.setFocusable(false);
         add(BtnSubir);
 
-        BtnBajar = new JButton("Descargar Archivo");
-        BtnBajar.setSize(new Dimension(190, 40));
-        BtnBajar.setLocation(new Point(5, 120));
-        BtnBajar.setFont(new Font("Arial", Font.PLAIN, 15));
-        BtnBajar.setBackground(AzulOscuro);
-        BtnBajar.setForeground(Color.WHITE);
-        BtnBajar.setFocusable(false);
-        add(BtnBajar);
-
-        BtnHistorial = new JButton("Historial de Cambios");
-        BtnHistorial.setSize(new Dimension(190, 40));
-        BtnHistorial.setLocation(new Point(5, 235));
-        BtnHistorial.setFont(new Font("Arial", Font.PLAIN, 15));
-        BtnHistorial.setBackground(AzulOscuro);
-        BtnHistorial.setForeground(Color.WHITE);
-        BtnHistorial.setFocusable(false);
-        add(BtnHistorial);
-
-        BtnEliminar = new JButton("Eliminar archivo");
-        BtnEliminar.setSize(new Dimension(190, 40));
-        BtnEliminar.setLocation(new Point(5, 350));
-        BtnEliminar.setFont(new Font("Arial", Font.PLAIN, 15));
-        BtnEliminar.setBackground(AzulOscuro);
-        BtnEliminar.setForeground(Color.WHITE);
-        BtnEliminar.setFocusable(false);
-        add(BtnEliminar);
+        BtnArchivos = new JButton("Ver archivos");
+        BtnArchivos.setSize(new Dimension(190, 40));
+        BtnArchivos.setLocation(new Point(5, getHeight()-BtnArchivos.getHeight()-5));
+        BtnArchivos.setFont(new Font("Arial", Font.PLAIN, 15));
+        BtnArchivos.setBackground(AzulOscuro);
+        BtnArchivos.setForeground(Color.WHITE);
+        BtnArchivos.setFocusable(false);
+        add(BtnArchivos);
 
     }
 
     private void initListeners() {
         BtnSubir.addActionListener((e) -> {
+            RefCentral.reset();
+            repaint();
             JFileChooser fc = new JFileChooser();
             fc.showOpenDialog(null);
             fc.setAcceptAllFileFilterUsed(false);
@@ -85,33 +69,9 @@ public class PanelLateralEmpleado extends JPanel {
             }
         });
 
-        BtnBajar.addActionListener((e) -> {
-            int res = controller.bajarArchivo("XD.pdf");
-            switch (res) {
-                case 200:
-                    JOptionPane.showMessageDialog(null, "Archivo descargado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-                case 400:
-                    JOptionPane.showMessageDialog(null, "Archivo no encontrado", "Status", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 401:
-                    JOptionPane.showMessageDialog(null, "Got IOException", "Status", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 402:
-                    JOptionPane.showMessageDialog(null, "El directorio no se ha podido crear", "Status", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 403:
-                    JOptionPane.showMessageDialog(null, "No se ha podido descargar el archivo", "Status", JOptionPane.ERROR_MESSAGE);
-                    break;
-            }
-        });
-
-        BtnHistorial.addActionListener((e) -> {
-            //RefCentral.editarEmpleado();
-        });
-
-        BtnEliminar.addActionListener((e) -> {
-            //RefCentral.listarEmpleados();
+        BtnArchivos.addActionListener((e) -> {
+            RefCentral.verArchivos();
+            RefCentral.setArchivos();
         });
 
     }

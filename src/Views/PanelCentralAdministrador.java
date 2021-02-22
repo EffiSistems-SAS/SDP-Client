@@ -26,7 +26,7 @@ public class PanelCentralAdministrador extends JPanel {
     private JButton BtnAction, BtnObtener;
     private JTable tabla;
     private JScrollPane jsp;
-    
+
     private AdministradorController controller = new AdministradorController();
 
     private Color AzulClaro = new Color(123, 195, 229);
@@ -69,7 +69,7 @@ public class PanelCentralAdministrador extends JPanel {
 
         BtnObtener = new JButton();
         BtnObtener.setVisible(false);
-        
+
         jsp = new JScrollPane();
         jsp.setVisible(false);
 
@@ -165,25 +165,20 @@ public class PanelCentralAdministrador extends JPanel {
                         JOptionPane.showMessageDialog(null, "Rellene el campo", "Error", JOptionPane.WARNING_MESSAGE);
                     }
                     break;
-                default:
-                    System.out.println("¿Na-Nani?");
             }
         });
 
         BtnObtener.addActionListener((event) -> {
             Empleado empleado = controller.consultarEmpleado(TxtFldCorreo.getText());
-            System.out.println(empleado);
             if (empleado != null) {
                 TxtFldNombre.setText(empleado.getNombre());
                 TxtFldCargo.setText(empleado.getCargo());
                 TxtFldRol.setText(empleado.getRol());
                 TxtFldPass.setText(empleado.getContrasena());
                 LblId.setText("Id: " + empleado.getId());
-
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
             }
-
         });
     }
 
@@ -465,13 +460,13 @@ public class PanelCentralAdministrador extends JPanel {
             }
         }
 
-        tabla = new JTable(rows,cols);
-        tabla.setPreferredSize(new Dimension(1000,10000));
+        tabla = new JTable(rows, cols);
+        tabla.setPreferredSize(new Dimension(1000, 10000));
         tabla.setLocation(0, 0);
-        
+
         jsp = new JScrollPane(tabla);
-        
-        jsp.setSize(new Dimension(Ancho, Alto-5));
+
+        jsp.setSize(new Dimension(Ancho, Alto - 5));
         jsp.setLocation(0, 0);
         jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -544,7 +539,7 @@ public class PanelCentralAdministrador extends JPanel {
         BtnAction.setVisible(false);
 
         BtnObtener.setVisible(false);
-        
+
         jsp.setVisible(false);
         tabla.setVisible(false);
     }

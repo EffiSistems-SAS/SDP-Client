@@ -1,6 +1,5 @@
 package Views;
 
-
 import Controllers.EmpleadoController;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,23 +13,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
-
 public class MenuEmpleado extends JFrame {
 
-    public EmpleadoController m_EmpleadoController;
-     private final int Ancho = 800, Alto = 600;
+    private EmpleadoController m_EmpleadoController;
+    private final int Ancho = 800, Alto = 600;
     private PanelLateralEmpleado PnlLateral;
     private PanelCentralEmpleado PnlCentral;
     private JLabel LblTitle, LblWelcome;
     private JButton BtnQuit;
-    
+
     private Color AzulClaro = new Color(123, 195, 229);
     private Color Verde = new Color(31, 134, 101);
-    
-    public MenuEmpleado(String correo){
+
+    public MenuEmpleado(String correo) {
         m_EmpleadoController = new EmpleadoController(correo);
     }
-
 
     private void initComponents() {
         LblTitle = new JLabel("SECRETARÍA DISTRITAL DE PLANEACIÓN");
@@ -43,11 +40,11 @@ public class MenuEmpleado extends JFrame {
         LblTitle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         add(LblTitle);
 
-        PnlCentral = new PanelCentralEmpleado();
+        PnlCentral = new PanelCentralEmpleado(m_EmpleadoController);
         PnlCentral.setLocation(new Point(210, 40));
         add(PnlCentral);
 
-        PnlLateral = new PanelLateralEmpleado(PnlCentral,m_EmpleadoController);
+        PnlLateral = new PanelLateralEmpleado(PnlCentral, m_EmpleadoController);
         PnlLateral.setLocation(new Point(5, 40));
         add(PnlLateral);
 

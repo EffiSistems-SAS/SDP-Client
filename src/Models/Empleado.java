@@ -1,6 +1,7 @@
 package Models;
 
 import Connection.ConexionServer;
+import com.google.gson.Gson;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -57,12 +58,25 @@ public class Empleado {
         return null;
     }
 
-    public HistorialCambios[] consultarHistorialCambios(Archivo archivo) {
-        return null;
+    public HistorialCambios consultarHistorialCambios(String fileName) {
+        ConexionServer conection = ConexionServer.getConexionServer();
+        String json = conection.GET("/files/getHistory/" + id);
+        Gson gson = new Gson();
+        HistorialCambios history = gson.fromJson(json, HistorialCambios.class);
+        return history;
     }
 
-    public int eliminarArchivo(String nombre) {
-        return 0;
+    public int eliminarArchivo(String fileName) {
+        ConexionServer conection = ConexionServer.getConexionServer();
+        return conection.DELETE("/files/delete/" + id + "/" + fileName);
+    }
+
+    public Struct[] obtenerArchivos() {
+        ConexionServer conection = ConexionServer.getConexionServer();
+        String json = conection.GET("/files/get/" + id);
+        Gson gson = new Gson();
+        Struct[] files = gson.fromJson(json, Struct[].class);
+        return files;
     }
 
     public void setCorreo(String correo) {
