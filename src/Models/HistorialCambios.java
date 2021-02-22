@@ -1,24 +1,29 @@
 package Models;
 
-import java.sql.Date;
+import java.util.ArrayList;
 
-/**
- * @author User
- * @version 1.0
- * @created 03-feb.-2021 21:24:55
- */
 public class HistorialCambios {
 
-    private int version;
-    private String descipcion;
-    private String motivoCambio;
-    private Date fecha;
+    ArrayList<Cambio> cambios = new ArrayList<>();
 
-    public HistorialCambios() {
-
+    public ArrayList<Cambio> getCambios() {
+        return cambios;
     }
 
-    public void finalize() throws Throwable {
-
+    public void setCambios(ArrayList<Cambio> cambios) {
+        this.cambios = cambios;
     }
-}//end HistorialCambios
+
+    @Override
+    public String toString() {
+        String retorno = "";
+
+        for (int i = 0; i < cambios.size(); i++) {
+            Cambio currentChange = cambios.get(i);
+            retorno += "Cambio #" + (i + 1) + " Versión: " + currentChange.getVersion() + " ----- Fecha: " + currentChange.getFecha() + "\n";
+        }
+
+        return retorno;
+    }
+
+}

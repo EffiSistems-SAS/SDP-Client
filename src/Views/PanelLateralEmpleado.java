@@ -40,7 +40,7 @@ public class PanelLateralEmpleado extends JPanel {
 
         BtnArchivos = new JButton("Ver archivos");
         BtnArchivos.setSize(new Dimension(190, 40));
-        BtnArchivos.setLocation(new Point(5, getHeight()-BtnArchivos.getHeight()-5));
+        BtnArchivos.setLocation(new Point(5, getHeight() - BtnArchivos.getHeight() - 5));
         BtnArchivos.setFont(new Font("Arial", Font.PLAIN, 15));
         BtnArchivos.setBackground(AzulOscuro);
         BtnArchivos.setForeground(Color.WHITE);
@@ -63,6 +63,13 @@ public class PanelLateralEmpleado extends JPanel {
                     case 200:
                         JOptionPane.showMessageDialog(null, "Archivo subido exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
                         break;
+                    case 202:
+                        JOptionPane.showMessageDialog(null, "Registro actualizado", "Status", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    case 400:
+                        JOptionPane.showMessageDialog(null, "Hubo un error", "Status", JOptionPane.INFORMATION_MESSAGE);
+                        break;
+
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Archivo no seleccionado", "Status", JOptionPane.ERROR_MESSAGE);

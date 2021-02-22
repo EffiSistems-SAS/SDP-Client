@@ -48,11 +48,14 @@ public class PanelCentralEmpleado extends JPanel {
             if (tablaArchivos.getSelectedRow() <= -1) {
                 JOptionPane.showMessageDialog(null, "Ningún archivo seleccionado", "Status", JOptionPane.ERROR_MESSAGE);
             } else {
-                String name = (String) tablaArchivos.getValueAt(tablaArchivos.getSelectedRow(), 4);
-                int status = controller.eliminarArchivo(name);
+                String fileId = (String) tablaArchivos.getValueAt(tablaArchivos.getSelectedRow(), 1);
+                System.out.println(fileId);
+                int status = controller.eliminarArchivo(fileId);
                 switch (status) {
                     case 200:
                         JOptionPane.showMessageDialog(null, "El archivo ha sido eliminado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                        verArchivos();
+                        setArchivos();
                         break;
                     case 400:
                         JOptionPane.showMessageDialog(null, "Ha ocurrido un error", "Status", JOptionPane.ERROR_MESSAGE);
@@ -144,7 +147,7 @@ public class PanelCentralEmpleado extends JPanel {
     public void setArchivos() {
         File[] files = controller.obtenerArchivos();
 
-        String[] cols = {"uploadDate", "id", "length", "chunkSize", "filename", "md5", "contentType"};
+        String[] cols = {"uploadDate", "id", "filename"};
         String[][] rows = new String[files.length][cols.length];
 
         for (int i = 0; i < rows.length; i++) {
@@ -157,19 +160,7 @@ public class PanelCentralEmpleado extends JPanel {
                         rows[i][j] = files[i].getId();
                         break;
                     case 2:
-                        rows[i][j] = String.valueOf(files[i].getLength());
-                        break;
-                    case 3:
-                        rows[i][j] = String.valueOf(files[i].getChunkSize());
-                        break;
-                    case 4:
                         rows[i][j] = files[i].getFilename();
-                        break;
-                    case 5:
-                        rows[i][j] = files[i].getMd5();
-                        break;
-                    case 6:
-                        rows[i][j] = files[i].getContentType();
                         break;
                 }
             }
@@ -190,6 +181,7 @@ public class PanelCentralEmpleado extends JPanel {
         jsp.updateUI();
 
         repaint();
+
     }
 
     public void reset() {

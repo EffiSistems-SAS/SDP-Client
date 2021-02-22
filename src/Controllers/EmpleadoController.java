@@ -2,7 +2,6 @@ package Controllers;
 
 import Connection.ConexionServer;
 import Models.Archivo;
-import Views.MenuEmpleado;
 import Models.Empleado;
 import Models.HistorialCambios;
 import Models.Struct;
@@ -42,8 +41,8 @@ public class EmpleadoController {
         return historial;
     }
     
-    public int eliminarArchivo(String fileName) {
-        int status = m_Empleado.eliminarArchivo(fileName);
+    public int eliminarArchivo(String fileId) {
+        int status = m_Empleado.eliminarArchivo(fileId);
         return status;
     }
     

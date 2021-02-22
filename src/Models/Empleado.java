@@ -38,13 +38,13 @@ public class Empleado {
 
     public int subirArchivos(Archivo archivo) {
         ConexionServer conection = ConexionServer.getConexionServer();
-        int res = 0;
+        int res;
         try {
-            res = conection.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
+            conection.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
+            res = conection.POSTFILE("/files/post/" + id, archivo.getFile());
         } catch (UnsupportedEncodingException ex) {
-
+            res = 400;
         }
-        conection.POSTFILE("/files/post/" + id, archivo.getFile());
         return res;
     }
 
@@ -66,9 +66,9 @@ public class Empleado {
         return history;
     }
 
-    public int eliminarArchivo(String fileName) {
+    public int eliminarArchivo(String fileId) {
         ConexionServer conection = ConexionServer.getConexionServer();
-        return conection.DELETE("/files/delete/" + id + "/" + fileName);
+        return conection.DELETE("/files/delete/" + id + "/" + fileId);
     }
 
     public Struct[] obtenerArchivos() {
