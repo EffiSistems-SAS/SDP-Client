@@ -39,7 +39,7 @@ public class Empleado {
         int res;
         try {
             m_ConexionServer.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
-            res = m_ConexionServer.POSTFILE("/files/post/" + id+"/"+archivo.getFile().getName(), archivo.getFile());
+            res = m_ConexionServer.POSTFILE("/files/post/" + id+"/"+URLEncoder.encode(archivo.getFile().getName(), "UTF-8"), archivo.getFile());
         } catch (UnsupportedEncodingException ex) {
             res = 400;
         }
