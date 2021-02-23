@@ -18,7 +18,7 @@ public class Empleado {
     private Archivo m_Archivo;
 
     public Empleado() {
-
+        m_ConexionServer = ConexionServer.getConexionServer();
     }
 
     public Empleado(String id, String correo, String contraseña, String nombre, String cargo, String rol) {
@@ -31,17 +31,15 @@ public class Empleado {
     }
 
     public int iniciarSesion() {
-        ConexionServer conection = ConexionServer.getConexionServer();
-        conection.GET("/auth/login/" + correo + "/" + contrasena);
-        return conection.getResponse().getStatusLine().getStatusCode();
+        m_ConexionServer.GET("/auth/login/" + correo + "/" + contrasena);
+        return m_ConexionServer.getResponse().getStatusLine().getStatusCode();
     }
 
     public int subirArchivos(Archivo archivo) {
-        ConexionServer conection = ConexionServer.getConexionServer();
         int res;
         try {
-            conection.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
-            res = conection.POSTFILE("/files/post/" + id, archivo.getFile());
+            m_ConexionServer.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
+            res = m_ConexionServer.POSTFILE("/files/post/" + id+"/"+archivo.getFile().getName(), archivo.getFile());
         } catch (UnsupportedEncodingException ex) {
             res = 400;
         }
@@ -49,9 +47,8 @@ public class Empleado {
     }
 
     public InputStream bajarArchivos(String fileName) {
-        ConexionServer conection = ConexionServer.getConexionServer();
         try {
-            return conection.GETFILE("/files/get/" + URLEncoder.encode(nombre, "UTF-8") + "/" + fileName);
+            return m_ConexionServer.GETFILE("/files/get/" + URLEncoder.encode(nombre, "UTF-8") + "/" + fileName);
         } catch (UnsupportedEncodingException ex) {
 
         }
@@ -59,21 +56,18 @@ public class Empleado {
     }
 
     public HistorialCambios consultarHistorialCambios(String fileName) {
-        ConexionServer conection = ConexionServer.getConexionServer();
-        String json = conection.GET("/files/getHistory/" + id);
+        String json = m_ConexionServer.GET("/files/getHistory/" + id);
         Gson gson = new Gson();
         HistorialCambios history = gson.fromJson(json, HistorialCambios.class);
         return history;
     }
 
     public int eliminarArchivo(String fileId) {
-        ConexionServer conection = ConexionServer.getConexionServer();
-        return conection.DELETE("/files/delete/" + id + "/" + fileId);
+        return m_ConexionServer.DELETE("/files/delete/" + id + "/" + fileId);
     }
 
     public Struct[] obtenerArchivos() {
-        ConexionServer conection = ConexionServer.getConexionServer();
-        String json = conection.GET("/files/get/" + id);
+        String json = m_ConexionServer.GET("/files/get/" + id);
         Gson gson = new Gson();
         Struct[] files = gson.fromJson(json, Struct[].class);
         return files;

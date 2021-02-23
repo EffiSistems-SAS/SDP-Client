@@ -57,7 +57,9 @@ public class PanelLateralEmpleado extends JPanel {
             fc.showOpenDialog(null);
             fc.setAcceptAllFileFilterUsed(false);
             File files = fc.getSelectedFile();
+
             if (!(files == null)) {
+
                 int res = controller.subirArchivo(files);
                 switch (res) {
                     case 200:
@@ -69,8 +71,8 @@ public class PanelLateralEmpleado extends JPanel {
                     case 400:
                         JOptionPane.showMessageDialog(null, "Hubo un error", "Status", JOptionPane.INFORMATION_MESSAGE);
                         break;
-
                 }
+
             } else {
                 JOptionPane.showMessageDialog(null, "Archivo no seleccionado", "Status", JOptionPane.ERROR_MESSAGE);
             }
