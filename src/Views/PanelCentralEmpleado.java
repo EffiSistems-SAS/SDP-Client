@@ -20,7 +20,7 @@ public class PanelCentralEmpleado extends JPanel {
 
     private EmpleadoController controller;
 
-    private JScrollPane jsp;
+    private JScrollPane jsp, jspCambios;
     private JButton BtnBorrar, BtnHistorial, BtnDescargar;
     private JTable tablaArchivos, tablaCambios;
 
@@ -33,6 +33,9 @@ public class PanelCentralEmpleado extends JPanel {
 
     public void initComponents() {
         tablaArchivos = new JTable();
+        tablaCambios = new JTable();
+        jspCambios = new JScrollPane();
+        jspCambios.setVisible(false);
         jsp = new JScrollPane();
         jsp.setVisible(false);
         BtnBorrar = new JButton("Borrar Archivo");
@@ -49,8 +52,8 @@ public class PanelCentralEmpleado extends JPanel {
                 JOptionPane.showMessageDialog(null, "Ningún archivo seleccionado", "Status", JOptionPane.ERROR_MESSAGE);
             } else {
                 String fileId = (String) tablaArchivos.getValueAt(tablaArchivos.getSelectedRow(), 1);
-                System.out.println(fileId);
-                int status = controller.eliminarArchivo(fileId);
+                String fileName = (String) tablaArchivos.getValueAt(tablaArchivos.getSelectedRow(), 2);
+                int status = controller.eliminarArchivo(fileId,fileName);
                 switch (status) {
                     case 200:
                         JOptionPane.showMessageDialog(null, "El archivo ha sido eliminado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
@@ -68,13 +71,40 @@ public class PanelCentralEmpleado extends JPanel {
             if (tablaArchivos.getSelectedRow() <= -1) {
                 JOptionPane.showMessageDialog(null, "Ningún archivo seleccionado", "Status", JOptionPane.ERROR_MESSAGE);
             } else {
-                String name = (String) tablaArchivos.getValueAt(tablaArchivos.getSelectedRow(), 4);
+                reset();
+                String name = (String) tablaArchivos.getValueAt(tablaArchivos.getSelectedRow(), 1);
                 HistorialCambios newHistorial = controller.verHistorialCambios(name);
-                if (newHistorial == null) {
-                    JOptionPane.showMessageDialog(null, "El archivo seleccionado no tiene modificaciones", "Status", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Founds changes", "Status", JOptionPane.INFORMATION_MESSAGE);
+                String cols[] = {"Version", "Fecha del cambio"};
+                String[][] rows = new String[newHistorial.getCambios().size()][2];
+
+                for (int i = 0; i < rows.length; i++) {
+                    for (int j = 0; j < rows[0].length; j++) {
+                        switch (j) {
+                            case 0:
+                                rows[i][j] = ""+newHistorial.getCambios().get(i).getVersion();
+                                break;
+                            case 1:
+                                rows[i][j] = newHistorial.getCambios().get(i).getFecha();
+                                break;
+                        }
+                    }
                 }
+
+                tablaCambios = new JTable(rows, cols);
+                tablaCambios.setPreferredSize(new Dimension(1000, 1000));
+
+                jspCambios = new JScrollPane(tablaCambios);
+
+                jspCambios.setSize(new Dimension(440, 355));
+                jspCambios.setLocation(new Point((getWidth() - jspCambios.getWidth()) / 2, (getHeight()-jspCambios.getHeight())/2));
+                jspCambios.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                jspCambios.setVisible(true);
+                jspCambios.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                jspCambios.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                add(jspCambios);
+                jspCambios.updateUI();
+
+                repaint();
             }
         });
 
@@ -186,6 +216,7 @@ public class PanelCentralEmpleado extends JPanel {
 
     public void reset() {
         jsp.setVisible(false);
+        jspCambios.setVisible(false);
         BtnBorrar.setVisible(false);
         BtnHistorial.setVisible(false);
         BtnDescargar.setVisible(false);

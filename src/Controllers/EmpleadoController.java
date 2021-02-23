@@ -41,8 +41,8 @@ public class EmpleadoController {
         return historial;
     }
     
-    public int eliminarArchivo(String fileId) {
-        int status = m_Empleado.eliminarArchivo(fileId);
+    public int eliminarArchivo(String fileId,String fileName) {
+        int status = m_Empleado.eliminarArchivo(fileId,fileName);
         return status;
     }
     

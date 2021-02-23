@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Empleado {
 
@@ -55,15 +57,21 @@ public class Empleado {
         return null;
     }
 
-    public HistorialCambios consultarHistorialCambios(String fileName) {
-        String json = m_ConexionServer.GET("/files/getHistory/" + id);
+    public HistorialCambios consultarHistorialCambios(String idFile) {
+        String json = m_ConexionServer.GET("/historialCambios/" + idFile);
         Gson gson = new Gson();
         HistorialCambios history = gson.fromJson(json, HistorialCambios.class);
         return history;
     }
 
-    public int eliminarArchivo(String fileId) {
-        return m_ConexionServer.DELETE("/files/delete/" + id + "/" + fileId);
+    public int eliminarArchivo(String fileId,String fileName) {
+        int resFisica = 0,resMongo = 0;
+        try {
+            resFisica = m_ConexionServer.DELETE("/multer/"+"delete/"+URLEncoder.encode(nombre, "UTF-8")+"/?fileName="+URLEncoder.encode(fileName, "UTF-8"));
+            resMongo = m_ConexionServer.DELETE("/files/delete/" + id + "/" + fileId);
+        } catch (UnsupportedEncodingException ex) {
+        }
+        return (resFisica == 200 && resMongo == 200)?(200):(400);
     }
 
     public Struct[] obtenerArchivos() {
