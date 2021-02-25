@@ -61,11 +61,11 @@ public class PanelLateralEmpleado extends JPanel {
             fc.setAcceptAllFileFilterUsed(false);
             File files = fc.getSelectedFile();
 
-            String name = files.getName();
-            int pos = name.indexOf(".");
-            String ext = name.substring(pos + 1);
-
             if (!(files == null)) {
+
+                String name = files.getName();
+                int pos = name.indexOf(".");
+                String ext = name.substring(pos + 1);
 
                 if (extensiones.contains(ext)) {
                     int res = controller.subirArchivo(files);
