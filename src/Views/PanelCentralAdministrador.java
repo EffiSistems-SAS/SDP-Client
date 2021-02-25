@@ -117,6 +117,7 @@ public class PanelCentralAdministrador extends JPanel {
                                     JOptionPane.showMessageDialog(null, "Usuario creado anteriormente", "Status", JOptionPane.ERROR_MESSAGE);
                                     break;
                                 default:
+                                    System.out.println("Status: "+status);
                                     JOptionPane.showMessageDialog(null, "Unexpected error", "Status", JOptionPane.ERROR_MESSAGE);
                                     break;
                             }

@@ -15,7 +15,7 @@ public class Administrador extends Empleado {
 
     public int eliminarUsuario(String correo) {
         ConexionServer conection = ConexionServer.getConexionServer();
-        int res = conection.DELETE("/adminOps/delete/?correo=" + correo);
+        int res = conection.DELETE("/adminOps/delete/" + correo);
         return res;
     }
 

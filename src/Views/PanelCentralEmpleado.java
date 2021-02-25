@@ -110,7 +110,8 @@ public class PanelCentralEmpleado extends JPanel {
 
         BtnDescargar.addActionListener((e) -> {
             repaint();
-            int res = controller.bajarArchivo("XD.pdf");
+            String fileName = (String) tablaArchivos.getValueAt(tablaArchivos.getSelectedRow(), 2);
+            int res = controller.bajarArchivo(fileName);
             switch (res) {
                 case 200:
                     JOptionPane.showMessageDialog(null, "Archivo descargado exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);

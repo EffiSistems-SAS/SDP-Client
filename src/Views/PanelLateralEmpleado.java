@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -19,6 +21,7 @@ public class PanelLateralEmpleado extends JPanel {
     private JButton BtnSubir, BtnArchivos;
     private PanelCentralEmpleado RefCentral;
     private Color AzulOscuro = new Color(51, 80, 101);
+    private final ArrayList<String> extensiones = new ArrayList<String>(Arrays.asList("shp", "shx", "dbf", "sbn", "sbx", "fbn", "fbx", "ain", "aih", "atx", "ixs", "mxs", "prj", "xml", "cpg", "mxd"));
 
     private EmpleadoController controller;
 
@@ -58,19 +61,27 @@ public class PanelLateralEmpleado extends JPanel {
             fc.setAcceptAllFileFilterUsed(false);
             File files = fc.getSelectedFile();
 
+            String name = files.getName();
+            int pos = name.indexOf(".");
+            String ext = name.substring(pos + 1);
+
             if (!(files == null)) {
 
-                int res = controller.subirArchivo(files);
-                switch (res) {
-                    case 200:
-                        JOptionPane.showMessageDialog(null, "Archivo subido exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
-                        break;
-                    case 202:
-                        JOptionPane.showMessageDialog(null, "Registro actualizado", "Status", JOptionPane.INFORMATION_MESSAGE);
-                        break;
-                    case 400:
-                        JOptionPane.showMessageDialog(null, "Hubo un error", "Status", JOptionPane.INFORMATION_MESSAGE);
-                        break;
+                if (extensiones.contains(ext)) {
+                    int res = controller.subirArchivo(files);
+                    switch (res) {
+                        case 200:
+                            JOptionPane.showMessageDialog(null, "Archivo subido exitosamente", "Status", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        case 202:
+                            JOptionPane.showMessageDialog(null, "Registro actualizado", "Status", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                        case 400:
+                            JOptionPane.showMessageDialog(null, "Hubo un error", "Status", JOptionPane.INFORMATION_MESSAGE);
+                            break;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Extensión invalida", "Status", JOptionPane.ERROR_MESSAGE);
                 }
 
             } else {

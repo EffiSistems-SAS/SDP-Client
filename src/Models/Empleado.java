@@ -50,7 +50,7 @@ public class Empleado {
 
     public InputStream bajarArchivos(String fileName) {
         try {
-            return m_ConexionServer.GETFILE("/files/get/" + URLEncoder.encode(nombre, "UTF-8") + "/" + fileName);
+            return m_ConexionServer.GETFILE("/files/download/" + URLEncoder.encode(nombre, "UTF-8") + "/" + fileName);
         } catch (UnsupportedEncodingException ex) {
 
         }
