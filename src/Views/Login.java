@@ -132,7 +132,8 @@ public class Login extends JFrame {
     public void initTemplate() {
         setTitle("Iniciar Sesión");
         setLayout(null);
-
+        Image icon = new ImageIcon(getClass().getResource("../Resources/logomin.png")).getImage();
+        setIconImage(icon);
         setResizable(false);
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
