@@ -71,10 +71,10 @@ public class Empleado {
         return (resFisica == 200 && resMongo == 200)?(200):(400);
     }
 
-    public Struct[] obtenerArchivos() {
+    public Registro[] obtenerArchivos() {
         String json = m_ConexionServer.GET("/files/get/" + id);
         Gson gson = new Gson();
-        Struct[] files = gson.fromJson(json, Struct[].class);
+        Registro[] files = gson.fromJson(json, Registro[].class);
         return files;
     }
 

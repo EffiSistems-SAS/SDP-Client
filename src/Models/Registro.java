@@ -1,6 +1,6 @@
 package Models;
 
-public class Struct {
+public class Registro {
 
     private String _id;
     private String idEmpleado;

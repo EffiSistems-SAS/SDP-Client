@@ -6,8 +6,6 @@ import Models.Empleado;
 
 public class AdministradorController {
 
-    private Administrador administrador;
-    private MenuAdministrador menu;
     public MenuAdministrador m_MenuAdministrador;
     public Administrador m_Administrador = new Administrador();
 

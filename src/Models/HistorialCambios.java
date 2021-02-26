@@ -13,7 +13,7 @@ public class HistorialCambios {
     public void setCambios(ArrayList<Cambio> cambios) {
         this.cambios = cambios;
     }
-
+    
     @Override
     public String toString() {
         String retorno = "";

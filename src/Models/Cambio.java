@@ -2,7 +2,7 @@ package Models;
 
 public class Cambio {
 
-        private int version;
+    private int version;
     private String fecha;
 
     public int getVersion() {

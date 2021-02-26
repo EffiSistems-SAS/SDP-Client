@@ -4,7 +4,7 @@ import Connection.ConexionServer;
 import Models.Archivo;
 import Models.Empleado;
 import Models.HistorialCambios;
-import Models.Struct;
+import Models.Registro;
 import com.google.gson.Gson;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -47,7 +47,7 @@ public class EmpleadoController {
     }
 
     public Models.File[] obtenerArchivos() {
-        Struct[] structs = m_Empleado.obtenerArchivos();
+        Registro[] structs = m_Empleado.obtenerArchivos();
         Models.File[] files = new Models.File[structs.length];
         for (int i = 0; i < structs.length; i++) {
             files[i] = structs[i].getIdFile();
