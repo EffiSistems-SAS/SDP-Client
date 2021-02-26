@@ -15,7 +15,6 @@ public class Empleado {
     private String cargo;
     private String rol;
     private ConexionServer m_ConexionServer;
-    private Archivo m_Archivo;
 
     public Empleado() {
         m_ConexionServer = ConexionServer.getConexionServer();
@@ -35,11 +34,11 @@ public class Empleado {
         return m_ConexionServer.getResponse().getStatusLine().getStatusCode();
     }
 
-    public int subirArchivos(Archivo archivo) {
+    public int subirArchivos(java.io.File archivo) {
         int res;
         try {
-            m_ConexionServer.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo.getFile());
-            res = m_ConexionServer.POSTFILE("/files/post/" + id+"/"+URLEncoder.encode(archivo.getFile().getName(), "UTF-8"), archivo.getFile());
+            m_ConexionServer.POSTFILE("/multer/" + URLEncoder.encode(nombre, "UTF-8"), archivo);
+            res = m_ConexionServer.POSTFILE("/files/post/" + id+"/"+URLEncoder.encode(archivo.getName(), "UTF-8"), archivo);
         } catch (UnsupportedEncodingException ex) {
             res = 400;
         }
@@ -110,9 +109,5 @@ public class Empleado {
         return rol;
     }
 
-    @Override
-    public String toString() {
-        return "Empleado{" + "id=" + id + ", correo=" + correo + ", contrasena=" + contrasena + ", nombre=" + nombre + ", cargo=" + cargo + ", rol=" + rol + ", m_ConexionServer=" + m_ConexionServer + ", m_Archivo=" + m_Archivo + '}';
-    }
 
 }

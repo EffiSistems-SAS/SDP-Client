@@ -1,7 +1,6 @@
 package Controllers;
 
 import Connection.ConexionServer;
-import Models.Archivo;
 import Models.Empleado;
 import Models.HistorialCambios;
 import Models.Registro;
@@ -41,8 +40,8 @@ public class EmpleadoController {
         return historial;
     }
 
-    public int eliminarArchivo(String fileId,String fileName) {
-        int status = m_Empleado.eliminarArchivo(fileId,fileName);
+    public int eliminarArchivo(String fileId, String fileName) {
+        int status = m_Empleado.eliminarArchivo(fileId, fileName);
         return status;
     }
 
@@ -94,8 +93,7 @@ public class EmpleadoController {
     }
 
     public int subirArchivo(File archivo) {
-        Archivo archivoSubida = new Archivo(archivo);
-        return m_Empleado.subirArchivos(archivoSubida);
+        return m_Empleado.subirArchivos(archivo);
     }
 
     public void crearArchivo(String ruta, InputStream is) throws IOException {
