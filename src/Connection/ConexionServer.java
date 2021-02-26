@@ -33,7 +33,7 @@ public class ConexionServer {
         client = HttpClients.createDefault();
         get = null;
         post = null;
-        base_url = "http://localhost:3000";
+        base_url = "https://sdp-solution.herokuapp.com/";
     }
 
     public org.apache.http.HttpResponse getResponse() {
