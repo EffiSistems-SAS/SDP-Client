@@ -84,7 +84,7 @@ public class MenuAdministrador extends JFrame {
         setLayout(null);
         setSize(new Dimension(Ancho, Alto));
         setTitle("Administrador SDP");
-        Image icon = new ImageIcon(getClass().getResource("../Resources/logomin.png")).getImage();
+        Image icon = new ImageIcon(getClass().getResource("/Resources/logomin.png")).getImage();
         setIconImage(icon);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -96,8 +96,8 @@ public class MenuAdministrador extends JFrame {
     }
 
     public void setImagen(JButton Component, String nombreImg) {
-        String rutaBase = "src/Resources/" + nombreImg;
-        ImageIcon instr = new ImageIcon(rutaBase);
+        String rutaBase = "/Resources/" + nombreImg;
+        ImageIcon instr = new ImageIcon(getClass().getResource(rutaBase));
         Image imginstr = instr.getImage();
         Image nuevaimagen = imginstr.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon imagen = new ImageIcon(nuevaimagen);

@@ -13,11 +13,6 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Font;
 
-/**
- * @author migue
- * @version 1.0
- * @created 03-feb.-2021 21:24:55
- */
 public class Login extends JFrame {
 
     public MenuAdministrador m_MenuAdministrador;
@@ -30,20 +25,19 @@ public class Login extends JFrame {
     private JButton btnLogin;
     private JPasswordField inputPassword;
     private static Login login;
-    
+
     private Color Gris = new Color(226, 231, 236);
     private Color AzulOscuro = new Color(0, 37, 63);
 
     private Login() {
         LoginController = new LoginController();
-        
+
         ALTO = 500;
         ANCHO = 500;
         setSize(ANCHO, ALTO);
         initComponents();
         initListeners();
-        
-        
+
     }
 
     public static Login getLogin() {
@@ -59,7 +53,6 @@ public class Login extends JFrame {
         imgLogo.setLocation((getWidth() - imgLogo.getWidth()) / 2, 5);
         setImagen(imgLogo, "logo.png");
 
-        
         txtName = new JLabel("Correo:");
         txtName.setSize(150, 30);
         txtName.setLocation(115, 300);
@@ -77,7 +70,7 @@ public class Login extends JFrame {
         txtPassword.setLocation(115, 340);
         txtPassword.setFont(new Font("Arial", Font.BOLD, 15));
         add(txtPassword);
-        
+
         inputPassword = new JPasswordField();
         inputPassword.setSize(200, 30);
         inputPassword.setLocation(215, 340);
@@ -97,7 +90,7 @@ public class Login extends JFrame {
 
     private void initListeners() {
         btnLogin.addActionListener((event) -> {
-            int res = LoginController.iniciarSesion(inputName.getText(),String.valueOf(inputPassword.getPassword()));
+            int res = LoginController.iniciarSesion(inputName.getText(), String.valueOf(inputPassword.getPassword()));
             switch (res) {
                 case 202: {
                     MenuAdministrador menu = new MenuAdministrador();
@@ -130,8 +123,7 @@ public class Login extends JFrame {
     public void initTemplate() {
         setTitle("Iniciar Sesión");
         setLayout(null);
-        ImageIcon asd = new ImageIcon("../Resources/logomin.png"); 
-        Image icon = asd.getImage();
+        Image icon = new ImageIcon(getClass().getResource("/Resources/logomin.png")).getImage();
         setIconImage(icon);
         setResizable(false);
         getContentPane().setBackground(Color.WHITE);
@@ -146,8 +138,8 @@ public class Login extends JFrame {
     }
 
     private void setImagen(JLabel label, String nombreImg) {
-        String rutaBase = "src/Resources/" + nombreImg;
-        ImageIcon instr = new ImageIcon(rutaBase);
+        String rutaBase = "/Resources/" + nombreImg;
+        ImageIcon instr = new ImageIcon(getClass().getResource(rutaBase));
         Image imginstr = instr.getImage();
         Image nuevaimagen = imginstr.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon imagen = new ImageIcon(nuevaimagen);
