@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Empleado {
 
