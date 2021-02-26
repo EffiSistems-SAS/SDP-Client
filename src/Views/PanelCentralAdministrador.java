@@ -176,7 +176,7 @@ public class PanelCentralAdministrador extends JPanel {
                 TxtFldCargo.setText(empleado.getCargo());
                 TxtFldRol.setText(empleado.getRol());
                 TxtFldPass.setText(empleado.getContrasena());
-                LblId.setText("Id: " + empleado.getId());
+                LblId.setText(empleado.getId());
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario no encontrado", "Error", JOptionPane.WARNING_MESSAGE);
             }

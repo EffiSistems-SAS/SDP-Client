@@ -1,3 +1,5 @@
+package Main;
+
 import Views.Login;
 
 public class Main {
@@ -6,6 +8,6 @@ public class Main {
         Login newLogin = Login.getLogin();
         newLogin.initTemplate();
 
-    }
+    }   
 
 }
