@@ -52,9 +52,8 @@ public class Empleado {
         try {
             return m_ConexionServer.GETFILE("/files/download/" + URLEncoder.encode(nombre, "UTF-8") + "/" + fileName);
         } catch (UnsupportedEncodingException ex) {
-
+            return null;
         }
-        return null;
     }
 
     public HistorialCambios consultarHistorialCambios(String idFile) {

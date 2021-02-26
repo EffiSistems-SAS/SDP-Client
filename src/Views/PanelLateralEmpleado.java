@@ -83,7 +83,6 @@ public class PanelLateralEmpleado extends JPanel {
                 } else {
                     JOptionPane.showMessageDialog(null, "Extensión invalida", "Status", JOptionPane.ERROR_MESSAGE);
                 }
-
             } else {
                 JOptionPane.showMessageDialog(null, "Archivo no seleccionado", "Status", JOptionPane.ERROR_MESSAGE);
             }

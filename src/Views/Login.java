@@ -70,7 +70,6 @@ public class Login extends JFrame {
         inputName.setSize(200, 30);
         inputName.setLocation(215, 300);
         inputName.setBackground(Gris);
-        inputName.setText("miguel35697@hotmail.com");
         add(inputName);
 
         txtPassword = new JLabel("Contraseña:");
@@ -83,7 +82,6 @@ public class Login extends JFrame {
         inputPassword.setSize(200, 30);
         inputPassword.setLocation(215, 340);
         inputPassword.setBackground(Gris);
-        inputPassword.setText("contra123");
         add(inputPassword);
 
         btnLogin = new JButton("Iniciar sesión");
